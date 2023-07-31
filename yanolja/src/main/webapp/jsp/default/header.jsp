@@ -1,36 +1,44 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>header</title>
+<link rel="stylesheet" href="/css/header.css" type="text/css">
 <style type="text/css">
-	a {text-decoration: none; color:black;}
-	ul {padding: 20px;}
-	ul li {display: inline; padding: 15px;}
-	.main_div{height: 150px; padding-top : 80px;}
-</style>    
+</style>
+</head>
+<body>
 
-<script src="dbQuiz.js"></script>
+	<div class="header">
+		<div class="inner">
+			<a href="#"><img src="img/default/headerImg/logoYanolja.png" alt="logoYanolja"></a>
+			<div class="header_menu">
+				<ul>
+					<li>
+						<a href="#"div>
+							<img src="img/default/headerImg/home.png" alt="home"> 
+							<p>HOME</p>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<img src="img/default/headerImg/shoppingCart.png" alt="shoppingCart"> 
+							<p>장바구니</p>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<img src="img/default/headerImg/myPage.png" alt="myPage"> 
+							<p>마이페이지</p>
+						</a>
+					</li>
+				</ul>
+			</div>
 
-<div align="center">
-	<h1>CARE</h1>
-</div>
+		</div>
+	</div>
 
-<c:url var="context" value="/"/>
-<div align="right">
-	<hr>
-	<ul>
-		<li><a href="${context }index">HOME</a></li>
-		<li><a href="${context }register">Register</a></li>
-		<li><a href="${context }login">Login</a></li>
-		<li><a href="${context }memberInfo">MemberInfo</a></li>
-		<li><a href="${context }logout">Logout</a></li>
-		<li><a href="${context }boardForm">Board</a></li>
-	</ul>
-	<hr>
-</div>
-
-
-
-
-
-
-
-
+</body>
+</html>

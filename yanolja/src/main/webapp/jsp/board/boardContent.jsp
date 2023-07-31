@@ -15,7 +15,7 @@
 	<h1>글 내용</h1>
 	<table border='1'>
 		<tr>
-			<th width="100">작성자12</th>
+			<th width="100">작성자132</th>
 			<td width="200">${board.id }</td>
 			<th width="100">조회수</th>
 			<td width="200">${board.hits }</td>

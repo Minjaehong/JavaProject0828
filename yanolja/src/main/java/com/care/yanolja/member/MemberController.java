@@ -46,20 +46,20 @@ public class MemberController {
 //		return "member/login";
 //	}
 //	
-//	/* http://localhost:8086/dbQuiz/register */
-//	@GetMapping("register")
-//	public String register() {
-//		return "search/register";
-//	}
-//	
-//	@PostMapping("registerProc")
-//	public String registerProc(MemberDTO member, String confirm) {
-//		String result = service.registerProc(member, confirm);
-//		if(result.equals("회원 등록 완료")) {
-//			return "redirect:index";
-//		}
-//		return "member/register";
-//	}
+	/* http://localhost:8086/dbQuiz/register */
+	@GetMapping("register")
+	public String register() {
+		return "member/register";
+	}
+	
+	@PostMapping("registerProc")
+	public String registerProc(MemberDTO member, String confirm) {
+		String result = service.registerProc(member, confirm);
+		if(result.equals("회원 등록 완료")) {
+			return "redirect:index";
+		}
+		return "member/register";
+	}
 //	
 //	@RequestMapping("memberInfo")
 //	public String memberInfo(

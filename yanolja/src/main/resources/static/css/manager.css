@@ -6,11 +6,6 @@
 .sideMenuBar_inner{width:1200px; margin:0 auto; position:relative;}
 
 
-/*checkbox 공통*/
-input[type="checkbox"]{display:none;}
-input[type="checkbox"] + label:before{cursor:pointer; content:""; display:inline-block; width:35px; height:35px; border:2px solid #ddd; border-radius: 4px; vertical-align:middle;}
-input[type="checkbox"]:checked + label:before{content:""; border-color:#aaa; background:#ddd url('img/main/check-solid.svg') no-repeat center;}
-
 /*circleCheckbox 공통*/
 .circleCheck label{margin-right:50px;}
 .circleCheck input[type="checkbox"] + label:before{content:""; display:inline-block; width:20px; height:20px; border:2px solid #ddd; border-radius:50%; vertical-align:middle;}

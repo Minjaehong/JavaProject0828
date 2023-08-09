@@ -65,7 +65,7 @@
 					<ul>
 						<li>
 							<div>
-								<img src="img/default/ooterImg/footer_company1.svg" alt="footer_company1"> 
+								<img src="img/default/footerImg/footer_company1.svg" alt="footer_company1"> 
 								<br>정보보호관리체계인증<br>ISMS
 							</div>
 						</li>

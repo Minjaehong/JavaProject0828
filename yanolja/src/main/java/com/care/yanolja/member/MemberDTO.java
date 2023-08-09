@@ -1,23 +1,33 @@
 package com.care.yanolja.member;
 
 public class MemberDTO {
-	private String id;
-	private String pw;
-	private String userName;
-	private String address;
-	private String mobile;
 	
-	public String getId() {
-		return id;
+    private String userId;
+    private String userPw;
+    private String userEmail;
+    private String userName;
+    private String userDob;   // 생년월일
+    private String userMobile;    
+    private String userSnsC;
+    
+    
+	public String getUserId() {
+		return userId;
 	}
-	public void setId(String id) {
-		this.id = id;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
-	public String getPw() {
-		return pw;
+	public String getUserPw() {
+		return userPw;
 	}
-	public void setPw(String pw) {
-		this.pw = pw;
+	public void setUserPw(String userPw) {
+		this.userPw = userPw;
+	}
+	public String getUserEmail() {
+		return userEmail;
+	}
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
 	}
 	public String getUserName() {
 		return userName;
@@ -25,18 +35,24 @@ public class MemberDTO {
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-	public String getAddress() {
-		return address;
+	public String getUserDob() {
+		return userDob;
 	}
-	public void setAddress(String address) {
-		this.address = address;
+	public void setUserDob(String userDob) {
+		this.userDob = userDob;
 	}
-	public String getMobile() {
-		return mobile;
+	public String getUserMobile() {
+		return userMobile;
 	}
-	public void setMobile(String mobile) {
-		this.mobile = mobile;
+	public void setUserMobile(String userMobile) {
+		this.userMobile = userMobile;
 	}
-	
-	
+	public String getUserSnsC() {
+		return userSnsC;
+	}
+	public void setUserSnsC(String userSnsC) {
+		this.userSnsC = userSnsC;
+	}
 }
+	
+	

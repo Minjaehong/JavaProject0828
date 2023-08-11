@@ -24,7 +24,7 @@ public class AdminController {
 		if (result.equals("로그인 성공")) {
 			return "redirect:index";
 		}
-		return "admin/adminLogin";
+		return "redirect:adminLogin";
 	}
 
 	@GetMapping("adminRegister")

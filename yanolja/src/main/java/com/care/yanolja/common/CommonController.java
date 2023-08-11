@@ -28,4 +28,9 @@ public class CommonController {
 
 		return "default/footer";
 	}
+	
+	@RequestMapping("loginMain")
+	public String loginMain() {
+		return "default/loginMain";
+	}
 }

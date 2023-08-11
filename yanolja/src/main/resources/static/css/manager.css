@@ -153,9 +153,9 @@
 
 /*reservationManager.jsp ********************************************************************/
 .reservationManager{text-align:center;}
-.reservationManager h1{font-size:35px; margin-bottom:100px; background-color:#f89cb5; height:150px; line-height:150px;}
+.reservationManager h1{font-size:35px; margin-bottom:100px; height:150px; line-height:150px;}
 .reservationManager h2{text-align:left; font-size:30px; margin-left:20px;}
-.reservationManager_content > hr{border:3px solid #f89cb5; margin-bottom:30px;}
+.reservationManager_content > hr{border:1px solid #f89cb5; margin-bottom:30px;}
 .reservationManager_content{margin-left:300px;}
 
 .reservationManager .manager_menu > ul li:nth-child(4){border:1px solid #de2e5f; background-color:#fbd7e1;}

@@ -23,8 +23,8 @@
 				<input type="text" maxlength="12" name="adminId" id="adminId" placeholder="야놀자 사업자용 아이디 6~12자">
 			</p>
 			<p>
-				<label for="adminPassword">비밀번호</label> <input type="password"
-					maxlength="12" name="adminPw" id="adminPw" placeholder="영문, 특수문자, 숫자혼합 6~12자">
+				<label for="adminPassword">비밀번호</label> 
+				<input type="password"	maxlength="12" name="adminPw" id="adminPw" placeholder="영문, 특수문자, 숫자혼합 6~12자">
 			</p>
 		</div>
 		<p>

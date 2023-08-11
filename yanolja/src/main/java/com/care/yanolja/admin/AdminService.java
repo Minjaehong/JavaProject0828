@@ -23,8 +23,12 @@ public class AdminService {
 		}
 
 		AdminDTO result = adminMapper.adminLoginProc(admin.getAdminId());
+		
 		if (result != null) {
-			// 암호화 비밀번호
+			// 암호화 비밀번호					
+			System.out.println("admin pw : " + admin.getAdminPw());
+			System.out.println("result pw : "+ result.getAdminPw());
+			
 			BCryptPasswordEncoder bpe = new BCryptPasswordEncoder();
 			if (bpe.matches(admin.getAdminPw(), result.getAdminPw())) {			
 //			if (admin.getAdminPw().equals(result.getAdminPw())) {

@@ -6,7 +6,6 @@
 
 <title>사업자용 회원가입</title>
 
-
 <c:import url="/header"/>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
@@ -51,7 +50,7 @@
 					<ul>
 						<li>아이디</li>
 						<li><input type="text" style="width:500px;" id="adminId" name="adminId" placeholder="아이디를 입력하세요"></li>
-						<li><button type="button" class="registerBtn" onclick="adminIdCheck()">중복 확인</button></li>
+						<li><button type="button" class="registerBtn" onclick="dupCheck()">중복 확인</button></li>
 						<li><label id="adminIdCheck"></label></li> <!-- 중복확인 시 중복확인 환료 출력 -->
 					</ul>
 					<ul>

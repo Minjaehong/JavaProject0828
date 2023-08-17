@@ -2,23 +2,37 @@ package com.care.yanolja.rental;
 
 public class RentalDTO {
 	private String hostName;
+	private String hostImg;
 	private String roomName;
 	private String roomImg;
 	private String region;
 	private String adminName;
+	private String adminId;
 	private String adminLocation;
 	private String businessNumber;
 	private String minPeople;
 	private String maxPeople;
 	private String roomPay;
 	private String roomNum;
-	private String address;
 	private String info;
 	private String service;
 	private String lodType;
 	private String deadlineC;
 	private String adminMobile;
 	
+	
+	public String getAdminId() {
+		return adminId;
+	}
+	public void setAdminId(String adminId) {
+		this.adminId = adminId;
+	}
+	public String getHostImg() {
+		return hostImg;
+	}
+	public void setHostImg(String hostImg) {
+		this.hostImg = hostImg;
+	}
 	public String getHostName() {
 		return hostName;
 	}
@@ -84,12 +98,6 @@ public class RentalDTO {
 	}
 	public void setRoomNum(String roomNum) {
 		this.roomNum = roomNum;
-	}
-	public String getAddress() {
-		return address;
-	}
-	public void setAddress(String address) {
-		this.address = address;
 	}
 	public String getInfo() {
 		return info;

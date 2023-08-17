@@ -88,5 +88,19 @@ public class AdminService {
 		return "이미 가입된 아이디 입니다.";
 		
 	}
+	
+	public String dupCheckProc(String adminId) {
+		if (adminId == null || adminId.isEmpty()) {
+			return "아이디를 입력하세요.";
+		}
+		
+		AdminDTO result = adminMapper.adminLoginProc(adminId);
+		
+		if (result != null) {
+			return "중복된 아이디입니다.";
+		}
+		
+		return "사용 가능한 아이디입니다.";	
+	}
 
 }

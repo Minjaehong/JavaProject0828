@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -43,6 +45,14 @@ public class AdminController {
 		}
 		System.out.println("등록 실패!");
 		return "admin/adminRegister";
+	}
+	
+	@ResponseBody
+	@PostMapping(value="dupCheck", produces = "text/plain; charset=utf-8")
+	public String dupCheck(@RequestBody(required = false)String adminId) {
+		
+		return service.dupCheckProc(adminId);	
+		
 	}
 
 }

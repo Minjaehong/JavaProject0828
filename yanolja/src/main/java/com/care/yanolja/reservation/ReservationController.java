@@ -1,11 +1,15 @@
 package com.care.yanolja.reservation;
 
 import java.awt.Window;
+import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.care.yanolja.admin.AdminService;
 import com.care.yanolja.rental.RentalDTO;
@@ -31,6 +35,14 @@ public class ReservationController {
 				
 		return "reservation/reservationManager";
 		
+	}
+	
+	@ResponseBody
+	@PostMapping(value="reservationCheck")
+	public ArrayList<ReservationDTO> reservationCheck(@RequestBody(required = false)String radioReservation, Model model) {
+		System.out.println("클릭 되었나 : " + radioReservation);		
+		
+		return reservationService.reservationCheck(radioReservation, model);
 	}
 	
 }

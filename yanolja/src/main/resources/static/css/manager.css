@@ -14,7 +14,8 @@
 /*manager_menu 공통*/
 .manager_menu{position:absolute; left:calc(50% - 600px);}
 .manager_menu > ul{margin-bottom:80px;}
-.manager_menu > ul li{font-size:20px; font-weight:400; margin-right:20px; width:250px; height:60px; line-height:50px; border:1px solid #ddd; border-bottom:none; box-sizing:border-box; -webkit-box-sizing:border-box; -moz-box-sizing:border-box;}
+.manager_menu > ul li{font-size:16px; font-weight:400; margin-right:20px; width:120px; height:45px; line-height:50px; border:1px solid #ddd; 
+border-bottom:none; box-sizing:border-box; -webkit-box-sizing:border-box; -moz-box-sizing:border-box;}
 .manager_menu > ul li:last-child{margin-right:0;}
 .manager_menu > ul li a{display:block;}
 .manager_menu > ul li:first-child{height:100px; line-height:100px; font-size:23px; font-weight:500; background-color:#de2e5f; color:#fff; border-color:#de2e5f;}
@@ -24,7 +25,7 @@
 
 /*manager_table 공통*/
 .manager_table{font-size:17px; margin-top:15px; line-height:50px; margin-right:10px;}
-.manager_table thead{background-color:#eee; font-weight:400;}
+.manager_table thead{background-color:#eee; font-weight:400; font-size:14px;}
 .manager_table tbody{font-weight:400;}
 
 
@@ -156,15 +157,17 @@
 .reservationManager h1{font-size:35px; margin-bottom:100px; height:150px; line-height:150px;}
 .reservationManager h2{text-align:left; font-size:30px; margin-left:20px;}
 .reservationManager_content > hr{border:1px solid #f89cb5; margin-bottom:30px;}
-.reservationManager_content{margin-left:300px;}
+.reservationManager_content{margin-left:150px;}
 
 .reservationManager .manager_menu > ul li:nth-child(4){border:1px solid #de2e5f; background-color:#fbd7e1;}
 .reservationManager .manager_menu > ul li:nth-child(4) a{color:#de2e5f;}
 
 .manager_reservationTable{margin-bottom:100px;}
 
+.manager_table{width: 100%; font-size:14px;}
+.reservation_stateTable > .manager_table > tbody {font-size:14px;}
 .reservation_stateTable > .manager_table > tbody > tr > td > input[type="text"]{border:none; text-align:center; padding:0;}
-.checkInOutBtn{width:100px; height:30px; font-size:15px; font-weight:500; border-radius:10px; border:1px solid #aeaeae; background-color:#fff; color:#aeaeae;}
+.checkInOutBtn{width:80px; height:30px; font-size:15px; font-weight:500; border-radius:10px; border:1px solid #aeaeae; background-color:#fff; color:#aeaeae;}
 .checkInOutBtn:hover{border:1px solid #7d7d7d; background-color:#7d7d7d; color:#fff;}
 
 

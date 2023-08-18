@@ -15,10 +15,24 @@ public class ReservationDTO {
 	private String checkOut;
 	private String peoplePlus;
 	private String roomInfo;
-	private String requirements;
 	private String idSelectLod;
-	private int reseNum;
+	private String reseNum;
+	private String clickCheckIn;
+	private String clickCheckOut;
+		
 	
+	public String getClickCheckIn() {
+		return clickCheckIn;
+	}
+	public void setClickCheckIn(String clickCheckIn) {
+		this.clickCheckIn = clickCheckIn;
+	}
+	public String getClickCheckOut() {
+		return clickCheckOut;
+	}
+	public void setClickCheckOut(String clickCheckOut) {
+		this.clickCheckOut = clickCheckOut;
+	}
 	public String getUserName() {
 		return userName;
 	}
@@ -103,22 +117,16 @@ public class ReservationDTO {
 	public void setRoomInfo(String roomInfo) {
 		this.roomInfo = roomInfo;
 	}
-	public String getRequirements() {
-		return requirements;
-	}
-	public void setRequirements(String requirements) {
-		this.requirements = requirements;
-	}
 	public String getIdSelectLod() {
 		return idSelectLod;
 	}
 	public void setIdSelectLod(String idSelectLod) {
 		this.idSelectLod = idSelectLod;
 	}
-	public int getReseNum() {
+	public String getReseNum() {
 		return reseNum;
 	}
-	public void setReseNum(int reseNum) {
+	public void setReseNum(String reseNum) {
 		this.reseNum = reseNum;
 	}
 	

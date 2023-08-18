@@ -150,6 +150,93 @@ function adminAllCheck() {
 	}
 }
 
+// reservationManager.jsp
+// 숙소 클릭 시 해당숙소 예약 확인 함수
+
+function reservationCheck() {
+	xhr = new XMLHttpRequest();
+	xhr.open('post', 'reservationCheck')
+	xhr.send(document.querySelector('input[type=radio][name="reservatinRadio"]:checked').value)
+	xhr.onreadystatechange = reservationCheckProc
+}
+
+function reservationCheckProc() {
+	var reservationData = JSON.parse(xhr.responseText)
+	console.log('클릭함')
+	if (xhr.readyState === 4 && xhr.status === 200) {
+
+		var result = "";
+
+		if (reservationData == '') {
+
+			document.getElementById('selecetdPlace').innerHTML = '선택한 숙소 : ' + document.querySelector('input[type=radio][name="reservatinRadio"]:checked').value + ' <h3>현재 예약이 없습니다.</h3>';
+
+			document.getElementById('reservationTbody').innerHTML = '';
+		} else {
+			for (i = 0; i < reservationData.length; i++) {
+				result += "<tr>";
+				result += "<td>" + i + "</td>";
+				result += "<td>" + reservationData[i].roomName + "</td>";
+
+				peopleSum = Number(reservationData[i].people) + Number(reservationData[i].children) + Number(reservationData[i].peoplePlus);
+
+				result += "<td>" + peopleSum + "</td>";
+				result += "<td>" + reservationData[i].userName + "</td>";
+				result += "<td>" + reservationData[i].userMobile + "</td>";
+				result += "<td>" + reservationData[i].reseNum + "</td>";
+				result += "<td>" + reservationData[i].clickCheckIn + "</td>"
+				var checkInName = 'checkInbutton' + i;
+				var checkOutName = 'checkOutbutton' + i;
+
+				if (reservationData[i].checkIn == '') {
+					result += "<td><button type=\"button\" class=\"checkInOutBtn\" value=\"" + reservationData[i].reseNum +"\" onclick=\"testCheckIn(this)\" id=\""+checkInName+"\" >체크인</button></td>"
+				} else {
+					result += "<td>" + reservationData[i].checkIn + "</td>";
+				}
+				result += "<td>" + reservationData[i].clickCheckOut + "</td>";
+				if (reservationData[i].checkOut == '') {
+					result += "<td><button type=\"button\" class=\"checkInOutBtn\" value=\""+ reservationData[i].reseNum+"\" onclick=\"testCheckOut(this)\ id=\""+checkOutName+" \" >체크아웃</button></td>"
+				} else {
+					result += "<td>" + reservationData[i].checkOut + "</td>";
+				}
+
+				if (reservationData[i].checkIn == '') {
+					result += "<td>예약완료</td>";
+				} else if (reservationData[i].checkOut == '') {
+					result += "<td>입실완료</td>";
+				} else {
+					result += "<td>퇴실완료</td>";
+				}
+
+				result += "</tr>";
+			}
+
+			document.getElementById('selecetdPlace').innerHTML = '선택한 숙소 : ' + reservationData[0].hostName;
+			document.getElementById('reservationTbody').innerHTML = result;
+		}
+	}
+}
+
+
+// 체크인,체크아웃 시간 확인 함수
+function testCheckIn(checkInButton) {
+	console.log('체크인 버튼 id : ' + checkInButton.id)
+
+	let today = new Date();
+
+	let year = today.getFullYear(); // 년도
+	let month = today.getMonth() + 1;  // 월
+	let date = today.getDate();  // 날짜
+	let day = today.getDay();  // 요일
+	let hours = today.getHours(); // 시
+	let minutes = today.getMinutes();  // 분
+
+	console.log('현재시간 : ' +year+month+date+day+hours+minutes)
+	console.log('체크인 버튼 값 : ' +checkInButton.value)
+	
+	document.getElementById(checkInButton.id).innerHTML= ''+year+month+date+day+hours+minutes
+}
+
 
 // register.jsp --------------------------------------------------------------------------------
 function individualAgree() {

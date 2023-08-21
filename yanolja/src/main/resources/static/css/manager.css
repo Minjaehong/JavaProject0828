@@ -28,6 +28,10 @@ border-bottom:none; box-sizing:border-box; -webkit-box-sizing:border-box; -moz-b
 .manager_table thead{background-color:#eee; font-weight:400; font-size:14px;}
 .manager_table tbody{font-weight:400;}
 
+.information_business{display: block; text-align:left; margin-left:50px; margin-bottom: 50px;}
+.information_business ul{overflow:hidden;}
+.information_business ul li{float:left; font-size:15px; font-weight:400; margin-top:5px; line-height:50px; margin-right:10px;}
+.information_business ul li:first-child{width:150px; height:50px; font-size:19px; font-weight:500;}
 
 
 

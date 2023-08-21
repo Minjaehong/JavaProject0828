@@ -19,30 +19,50 @@ import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class ReservationController {
-	@Autowired private ReservationService reservationService;
-	@Autowired private AdminService adminService;
-	@Autowired private RentalService rentalService;
-	@Autowired private HttpSession session;
+	@Autowired
+	private ReservationService reservationService;
+	@Autowired
+	private AdminService adminService;
+	@Autowired
+	private RentalService rentalService;
+	@Autowired
+	private HttpSession session;
 
-	
 	@RequestMapping("reservationManager")
 	public String reservationManager(Model model) {
 		if (session.getAttribute("adminId") == null) {
 			return "redirect:adminLogin";
 		}
-		
-		rentalService.rentalSelect((String)session.getAttribute("adminId"),model);
-				
+
+		rentalService.rentalSelect((String) session.getAttribute("adminId"), model);
+
 		return "reservation/reservationManager";
+
+	}
+
+	@ResponseBody
+	@PostMapping(value = "reservationCheck")
+	public ArrayList<ReservationDTO> reservationCheck(@RequestBody(required = false) String radioReservation,
+			Model model) {
+		System.out.println("클릭 되었나 : " + radioReservation);
+
+		return reservationService.reservationCheck(radioReservation, model);
+	}
+
+	@ResponseBody
+	@PostMapping("testCheckIn")
+	public void testCheckIn(@RequestBody(required = false) ReservationDTO reqData) {	
 		
+		reservationService.testCheckIn(reqData);
+
 	}
 	
 	@ResponseBody
-	@PostMapping(value="reservationCheck")
-	public ArrayList<ReservationDTO> reservationCheck(@RequestBody(required = false)String radioReservation, Model model) {
-		System.out.println("클릭 되었나 : " + radioReservation);		
+	@PostMapping("testCheckOut")
+	public void testCheckOut(@RequestBody(required = false) ReservationDTO reqData) {	
 		
-		return reservationService.reservationCheck(radioReservation, model);
+		reservationService.testCheckOut(reqData);
+
 	}
-	
+
 }

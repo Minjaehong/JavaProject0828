@@ -183,29 +183,38 @@ function reservationCheckProc() {
 				result += "<td>" + peopleSum + "</td>";
 				result += "<td>" + reservationData[i].userName + "</td>";
 				result += "<td>" + reservationData[i].userMobile + "</td>";
-				result += "<td>" + reservationData[i].reseNum + "</td>";
-				result += "<td>" + reservationData[i].clickCheckIn + "</td>"
-				var checkInName = 'checkInbutton' + i;
-				var checkOutName = 'checkOutbutton' + i;
+				result += "<td id=\""+ 'reseNum' + i +"\">" + reservationData[i].reseNum + "</td>";
+				result += "<td>" + reservationData[i].checkIn + "</td>"
+				var checkInName = 'checkIn' + i;
+				var checkOutName = 'checkOut' + i;
 
-				if (reservationData[i].checkIn == '') {
-					result += "<td><button type=\"button\" class=\"checkInOutBtn\" value=\"" + reservationData[i].reseNum +"\" onclick=\"testCheckIn(this)\" id=\""+checkInName+"\" >체크인</button></td>"
+				if (reservationData[i].clickCheckIn == '' || reservationData[i].clickCheckIn == null) {
+					result += "<td><input type=\"button\" class=\"checkInOutBtn\" value=\"체크인\" onclick=\"testCheckIn(this)\" id=\""+checkInName+"\" ></button>"
+					result += "<label id=\""+ checkInName + "Label" + "\"></label></td>"
+					result += "<td>" + reservationData[i].checkOut + "</td>";
 				} else {
-					result += "<td>" + reservationData[i].checkIn + "</td>";
-				}
-				result += "<td>" + reservationData[i].clickCheckOut + "</td>";
-				if (reservationData[i].checkOut == '') {
-					result += "<td><button type=\"button\" class=\"checkInOutBtn\" value=\""+ reservationData[i].reseNum+"\" onclick=\"testCheckOut(this)\ id=\""+checkOutName+" \" >체크아웃</button></td>"
-				} else {
+					result += "<td>" + reservationData[i].clickCheckIn + "</td>";
 					result += "<td>" + reservationData[i].checkOut + "</td>";
 				}
-
-				if (reservationData[i].checkIn == '') {
-					result += "<td>예약완료</td>";
-				} else if (reservationData[i].checkOut == '') {
-					result += "<td>입실완료</td>";
+				if (reservationData[i].clickCheckOut == '' || reservationData[i].clickCheckOut == null) {
+					if(reservationData[i].clickCheckIn == '' || reservationData[i].clickCheckIn == null){
+						result += "<td><input type=\"button\" class=\"checkInOutBtn\" disabled=\"disabled\" value=\"체크아웃\" onclick=\"testCheckOut(this)\" id=\""+checkOutName+"\" ></button>"
+						result += "<label id=\""+ checkOutName + "Label" + "\"></label></td>"
+					}else{
+						result += "<td><input type=\"button\" class=\"checkInOutBtn\" value=\"체크아웃\" onclick=\"testCheckOut(this)\" id=\""+checkOutName+"\" ></button>"
+						result += "<label id=\""+ checkOutName + "Label" + "\"></label></td>"
+					}
+					
 				} else {
-					result += "<td>퇴실완료</td>";
+					result += "<td>" + reservationData[i].clickCheckOut + "</td>";
+				}
+
+				if (reservationData[i].clickCheckIn == '' || reservationData[i].clickCheckIn == null) {
+					result += "<td id=\"" +checkInName + "Status"+ "\">예약완료</td>";
+				} else if (reservationData[i].clickCheckOut == '' || reservationData[i].clickCheckOut == null) {
+					result += "<td id=\"" +checkInName + "Status"+ "\">입실완료</td>";
+				} else {
+					result += "<td id=\"" +checkInName + "Status"+ "\">퇴실완료</td>";
 				}
 
 				result += "</tr>";
@@ -218,10 +227,25 @@ function reservationCheckProc() {
 }
 
 
+// 회원 정보 펼치기/접기 함수
+function openInformation(){
+	console.log('클릭됨')
+	var status = document.getElementById('informationBusiness')
+	console.log(status.style)
+	if(document.getElementById('informationBusiness').style.display == 'block' || document.getElementById('informationBusiness').style.display == ''){
+		document.getElementById('informationBusiness').style = 'display:none';
+		document.getElementById('toggle').textContent = '+';
+		console.log('펼쳐져있었음')
+	}else{
+		document.getElementById('informationBusiness').style = 'display:block';
+		document.getElementById('toggle').textContent = '-';adminAgreeSelectAll
+		console.log('접혀있었음')
+	}
+}
+
 // 체크인,체크아웃 시간 확인 함수
 function testCheckIn(checkInButton) {
 	console.log('체크인 버튼 id : ' + checkInButton.id)
-
 	let today = new Date();
 
 	let year = today.getFullYear(); // 년도
@@ -234,7 +258,71 @@ function testCheckIn(checkInButton) {
 	console.log('현재시간 : ' +year+month+date+day+hours+minutes)
 	console.log('체크인 버튼 값 : ' +checkInButton.value)
 	
-	document.getElementById(checkInButton.id).innerHTML= ''+year+month+date+day+hours+minutes
+	document.getElementById(checkInButton.id).style = 'display:none';	
+	document.getElementById(checkInButton.id  + 'Label').innerHTML = ''+year+month+date+day+hours+minutes;
+	document.getElementById(checkInButton.id  + 'Status').innerHTML = '입실완료';
+	
+	
+	let checkOutName = '';
+	checkOutName = checkInButton.id
+	
+	console.log('체크아웃 버튼 값 : ' + 'checkOut' + checkOutName.substring(7))
+	console.log('예약번호 id : ' + 'reseNum' + checkOutName.substring(7))
+	console.log('예약번호  값 : ' + document.getElementById('reseNum' + checkOutName.substring(7)).innerHTML)
+	document.getElementById('checkOut' + checkOutName.substring(7)).disabled = false
+	
+	var clickCheckInValue = ''+year+month+date+day+hours+minutes
+	var reseNumValue = document.getElementById('reseNum' + checkOutName.substring(7)).innerHTML
+	
+	var reqData = {
+		clickCheckIn : clickCheckInValue,
+		reseNum : reseNumValue
+	}
+	
+	reqData = JSON.stringify(reqData)
+	xhr = new XMLHttpRequest();
+	xhr.open('post','testCheckIn')
+	xhr.setRequestHeader('content-type', 'application/json');
+	xhr.send(reqData);
+	
+}
+
+function testCheckOut(checkOutButton) {
+	console.log('체크아웃 버튼 id : ' + checkOutButton.id)
+	let today = new Date();
+	let year = today.getFullYear(); // 년도
+	let month = today.getMonth() + 1;  // 월
+	let date = today.getDate();  // 날짜
+	let day = today.getDay();  // 요일
+	let hours = today.getHours(); // 시
+	let minutes = today.getMinutes();  // 분
+
+	let checkOutName = '';
+	checkOutName = checkOutButton.id
+	var index = checkOutName.substring(8)
+	console.log('현재시간 : ' +year+month+date+day+hours+minutes)
+	console.log('인덱스 값 : ' +index)
+	
+	document.getElementById(checkOutButton.id).style = 'display:none';	
+	document.getElementById(checkOutButton.id  + 'Label').innerHTML = ''+year+month+date+day+hours+minutes;
+	document.getElementById('checkIn' + index  + 'Status').innerHTML = '퇴실완료';
+	
+	
+	console.log('예약번호 id : ' + 'reseNum' + index.substring(7))
+	console.log('예약번호  값 : ' + document.getElementById('reseNum' + index).innerHTML)
+
+	var clickCheckOutValue = ''+year+month+date+day+hours+minutes
+	var reseNumValue = document.getElementById('reseNum' + index).innerHTML
+	
+	var reqData = {
+		clickCheckOut : clickCheckOutValue,
+		reseNum : reseNumValue
+	}
+	
+	reqData = JSON.stringify(reqData)
+	xhr.open('post','testCheckOut')
+	xhr.setRequestHeader('content-type', 'application/json');
+	xhr.send(reqData);
 }
 
 

@@ -24,4 +24,12 @@ public class ReservationService {
 		
 		return reservations;
 	}
+	
+	public void testCheckIn(ReservationDTO reservation) {
+		reservationMapper.clickCheckInProc(reservation);
+	}
+	
+	public void testCheckOut(ReservationDTO reservation) {
+		reservationMapper.clickCheckOutProc(reservation);
+	}
 }

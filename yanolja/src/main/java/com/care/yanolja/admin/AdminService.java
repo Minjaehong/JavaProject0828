@@ -38,6 +38,7 @@ public class AdminService {
 				session.setAttribute("businessNumber", result.getBusinessNumber());
 				session.setAttribute("adminMobile", result.getAdminMobile());
 				session.setAttribute("adminName", result.getAdminName());
+				session.setAttribute("region", result.getRegion());
 				return "로그인 성공";
 			}
 		}

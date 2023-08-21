@@ -36,7 +36,7 @@ public class AdminController {
 	
 	@PostMapping("adminRegisterProc")
 	public String adminRegisterProc(AdminDTO admin, String adminPwConfirm, String adminAddress, String adminDetailAddress, String postcode) {
-		String adminLocation = postcode + " "+ adminAddress + " " + adminDetailAddress;
+		String adminLocation = postcode + " "+ adminAddress + " " + ","+adminDetailAddress;
 		admin.setAdminLocation(adminLocation);
 		String result = service.adminRegiterProc(admin, adminPwConfirm);
 		if(result.equals("회원 등록 완료")) {

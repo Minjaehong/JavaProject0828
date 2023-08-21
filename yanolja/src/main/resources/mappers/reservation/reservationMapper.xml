@@ -28,4 +28,12 @@
   	<select id="reservationCheckProc"  resultMap="reservationDto">
   		SELECT * FROM reservation WHERE host_name=#{hostName} AND admin_name=#{adminName}
   	</select>
+  	
+  	<update id="clickCheckInProc" parameterType="com.care.yanolja.reservation.ReservationDTO">
+  		UPDATE reservation SET click_check_in=#{clickCheckIn} WHERE rese_num=#{reseNum} 
+  	</update>
+  	
+  	<update id="clickCheckOutProc" parameterType="com.care.yanolja.reservation.ReservationDTO">
+  		UPDATE reservation SET click_check_out=#{clickCheckOut} WHERE rese_num=#{reseNum} 
+  	</update>
   </mapper>

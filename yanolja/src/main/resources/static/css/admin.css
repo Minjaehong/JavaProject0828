@@ -4,6 +4,10 @@
 .inner{width:1200px; margin:0 auto;}
 .inner800{width:800px; margin:0 auto;}
 
+#arrow_upward{display:block; border:1px solid #ddd; position: fixed; background-color: #fff;
+width:50px; height:50px; line-height: 50px;  text-align: center; 
+font-size :40px; bottom:  10px; right: 100px; cursor:pointer;}
+
 /*adminLogin*/
 .headerLogin{height:85px; line-height:85px; text-align:center; margin:100px auto 100px;}
 .headerLogin a{text-align:center;}

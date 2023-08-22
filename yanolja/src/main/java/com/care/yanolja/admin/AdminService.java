@@ -103,5 +103,41 @@ public class AdminService {
 		
 		return "사용 가능한 아이디입니다.";	
 	}
+	
+	public String adminUpdateProc(AdminDTO admin, String adminPwConfirm, String adminPwCurrent) {
+		if(admin.getAdminPw() == null || admin.getAdminPw().isEmpty()) {
+			return "수정할 비밀번호를 입력하세요.";
+		}
+		
+		if(admin.getAdminPw().equals(adminPwConfirm) == false) {
+			return "두 비밀번호를 일치하여 입력하세요.";
+		}
+		
+		
+		AdminDTO loginResult = adminMapper.adminLoginProc(admin.getAdminId());
+		BCryptPasswordEncoder bpe = new BCryptPasswordEncoder();
+		if(!bpe.matches(adminPwCurrent, loginResult.getAdminPw())) {
+			return "현재 비밀번호가 틀렸습니다.";
+		}
+				
+		String cryptPassword = bpe.encode(admin.getAdminPw());
+		admin.setAdminPw(cryptPassword);
+				
+		int result = adminMapper.adminUpdateProc(admin);
+		if(result == 1)
+			return "회원 정보 수정 완료";
+		return "회원 정보 수정 실패";
+	}
+	
+	public String adminDeleteProc(String adminId) {
+		AdminDTO admin = adminMapper.adminLoginProc(adminId);
+		if (admin != null) {
+			adminMapper.adminDeleteProc(adminId);
+			return "회원 정보 삭제 완료";
+		}
+		
+		return "회원 정보 삭제 실패";				
+		
+	}
 
 }

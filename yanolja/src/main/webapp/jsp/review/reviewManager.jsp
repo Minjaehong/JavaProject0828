@@ -1,36 +1,31 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <script src="yanoljaFunction.js"></script>
 
 <link rel="stylesheet" href="/css/reset.css" type="text/css">
 
-<title>사업자용 예약관리</title>
+<title>사업자용 리뷰관리</title>
 
 <c:import url="/header" />
 
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
-<span class="material-symbols-outlined" id="arrow_upward" onClick="javascript:window.scrollTo(0,0)">arrow_upward</span>
+<div class="reviewManager">
+	<h1>My 야놀자 [사업자용]</h1>
+	<div class="sideMenuBar_inner">
 
+		<div class="manager_menu">
+			<ul>
+				<li>숙소 관리</li>
+				<li><a href="#">기존 숙소 관리</a></li>
+				<li><a href="#">신규 숙소 등록</a></li>
+				<li><a href="reservationManager">예약 현황</a></li>
+				<li><a href="reviewManager">후기 관리</a></li>
+			</ul>
+		</div>
 
-	<div class="reservationManager" onload="reservationCheck()">
-		<h1>My 야놀자 [사업자용]</h1>
-		<div class="sideMenuBar_inner">
-			<div class="manager_menu">
-				<ul>
-					<li>숙소 관리</li>
-					<li><a href="#">기존 숙소 관리</a></li>
-					<li><a href="#">신규 숙소 등록</a></li>
-					<li><a href="reservationManager">예약 현황</a></li>
-					<li><a href="reviewManager">후기 관리</a></li>
-				</ul>
-			</div>
-
-
-			<div class="reservationManager_content">
-				<h2 onclick="openInformation()">회원 정보 <span id="toggle">-</span></h2>
+		<div class="reviewManager_content">
+			<h2 onclick="openInformation()">회원 정보 <span id="toggle">-</span></h2>
 				<hr>
 				<div class="information_business" id="informationBusiness">
 					<ul>
@@ -98,8 +93,8 @@
 									<!-- for문 사용 -->
 									<c:forEach var="rental" items="${rentals}" varStatus="status">
 										<tr>
-											<td><input type="radio" name="reservatinRadio"
-												onclick="reservationCheck()" value="${rental.hostName }">
+											<td><input type="radio" name="reviewRadio"
+												onclick="reviewCheck()" value="${rental.hostName }">
 											</td>
 											<td>${rental.lodType }</td>
 											<td>${rental.hostName }</td>
@@ -113,51 +108,28 @@
 				</c:choose>
 
 
-
-				<h2>예약 현황 확인</h2>
-				<hr>
-				<!-- 예약 현황 테이블 -->
-				<div id="reservationBody">
-					<div class="reservation_stateTable">
-						<h3 id="selecetdPlace"></h3>
-						<table border=1 class="manager_table" id="manager_table">
-							<thead id="reservationThead" name="reservationTable">
-								<tr>
-									<th >No.</th>
-									<th >객실명</th>
-									<th >인원</th>
-									<th >예약자명</th>
-									<th >연락처</th>
-									<th >예약번호</th>
-									<th >체크인</th>
-									<th >체크인</th>
-									<th >체크아웃</th>
-									<th >체크아웃</th>
-									<th >객실현황</th>
-								</tr>
-							</thead>
-							<tbody id="reservationTbody" name="reservationTable" align="center">
-
-								<!-- for문 사용 -->
-	
-							</tbody>
-						</table>
-					</div>
-
+			<h2 id="reviewTitle">객실 후기</h2>
+			
+			<div class="roomReview">
+				<div class="sortReview">
+					<ul>
+						<li><p class="recentSort" id="recentSort" onclick="reviewCheck()">ㆍ최근 작성순</p></li>
+						<li><p class="starsSort" id="starsSort" onclick="reviewCheckStars()">ㆍ별점 높은순</p></li>
+					</ul>
 				</div>
-
-
-
+				<hr>
+				<div class="ReviewList">
+				
+						<h3 id="selecetedRental"></h3>
+						<ul id="ReviewList" name="ReviewList">
+			
+	
+						</ul>
+					
+				</div>
 			</div>
-
-
-
 		</div>
 	</div>
-
-
-
-
-
+</div>
 
 <c:import url="/footer" />

@@ -153,6 +153,44 @@ function adminAllCheck() {
 // reservationManager.jsp
 // 숙소 클릭 시 해당숙소 예약 확인 함수
 
+function adminUpdateAllCheck() {
+	let adminPw = document.getElementById('adminPw');
+	let adminPwCurrent = document.getElementById('adminPwCurrent');
+	adminPwCheck = document.getElementById('adminPwCheck')
+	adminPwReg = document.getElementById('adminPwReg')
+	let adminName = document.getElementById('adminName');
+	let adminMobile = document.getElementById('adminMobile');
+	let adminLocation = document.getElementById('adminLocation');
+	let region = document.getElementById('region');
+	let businessNumber = document.getElementById('businessNumber');
+	let businessNumberCheck = document.getElementById('businessNumberCheck');
+
+	if (adminPw.value == "") {
+		alert('비밀번호를 입력하세요.');
+	} else if (adminPwReg.textContent !== '* 사용가능한 비밀번호입니다.') {
+		alert('수정할 비밀번호는 영문+숫자+특수문자만을 사용해주세요.');
+	} else if (adminPwCheck.textContent !== '* 일치합니다.') {
+		alert('수정할 비밀번호 확인을 다시 시도하세요.');
+	} else if (adminName.value == "") {
+		alert('이름을 입력하세요.');
+	} else if (adminPwCurrent.value == "") {
+		alert('현재 비밀번호를 입력하세요.');
+	} else if (adminMobile.value == "") {
+		alert('연락처를 입력하세요.');
+	} else if (region.value == "") {
+		alert('지역을 선택하세요.');
+	} else if (businessNumber.value == "") {
+		alert('사업자번호를 입력하세요.');
+	} else if (businessNumberCheck.textContent !== '* 사용가능한 사업자번호입니다.') {
+		alert('사업자번호는 숫자 10자리로만 입력하세요.');
+	} else {
+		var f = document.getElementById('f');
+		alert('회원 정보가 수정되었습니다.');
+		f.submit();
+	}
+}
+
+
 function reservationCheck() {
 	xhr = new XMLHttpRequest();
 	xhr.open('post', 'reservationCheck')
@@ -162,7 +200,7 @@ function reservationCheck() {
 
 function reservationCheckProc() {
 	var reservationData = JSON.parse(xhr.responseText)
-	console.log('클릭함')
+	console.log('숙소 예약 클릭함')
 	if (xhr.readyState === 4 && xhr.status === 200) {
 
 		var result = "";
@@ -183,38 +221,38 @@ function reservationCheckProc() {
 				result += "<td>" + peopleSum + "</td>";
 				result += "<td>" + reservationData[i].userName + "</td>";
 				result += "<td>" + reservationData[i].userMobile + "</td>";
-				result += "<td id=\""+ 'reseNum' + i +"\">" + reservationData[i].reseNum + "</td>";
+				result += "<td id=\"" + 'reseNum' + i + "\">" + reservationData[i].reseNum + "</td>";
 				result += "<td>" + reservationData[i].checkIn + "</td>"
 				var checkInName = 'checkIn' + i;
 				var checkOutName = 'checkOut' + i;
 
 				if (reservationData[i].clickCheckIn == '' || reservationData[i].clickCheckIn == null) {
-					result += "<td><input type=\"button\" class=\"checkInOutBtn\" value=\"체크인\" onclick=\"testCheckIn(this)\" id=\""+checkInName+"\" ></button>"
-					result += "<label id=\""+ checkInName + "Label" + "\"></label></td>"
+					result += "<td><input type=\"button\" class=\"checkInOutBtn\" value=\"체크인\" onclick=\"testCheckIn(this)\" id=\"" + checkInName + "\" ></button>"
+					result += "<label id=\"" + checkInName + "Label" + "\"></label></td>"
 					result += "<td>" + reservationData[i].checkOut + "</td>";
 				} else {
 					result += "<td>" + reservationData[i].clickCheckIn + "</td>";
 					result += "<td>" + reservationData[i].checkOut + "</td>";
 				}
 				if (reservationData[i].clickCheckOut == '' || reservationData[i].clickCheckOut == null) {
-					if(reservationData[i].clickCheckIn == '' || reservationData[i].clickCheckIn == null){
-						result += "<td><input type=\"button\" class=\"checkInOutBtn\" disabled=\"disabled\" value=\"체크아웃\" onclick=\"testCheckOut(this)\" id=\""+checkOutName+"\" ></button>"
-						result += "<label id=\""+ checkOutName + "Label" + "\"></label></td>"
-					}else{
-						result += "<td><input type=\"button\" class=\"checkInOutBtn\" value=\"체크아웃\" onclick=\"testCheckOut(this)\" id=\""+checkOutName+"\" ></button>"
-						result += "<label id=\""+ checkOutName + "Label" + "\"></label></td>"
+					if (reservationData[i].clickCheckIn == '' || reservationData[i].clickCheckIn == null) {
+						result += "<td><input type=\"button\" class=\"checkInOutBtn\" disabled=\"disabled\" value=\"체크아웃\" onclick=\"testCheckOut(this)\" id=\"" + checkOutName + "\" ></button>"
+						result += "<label id=\"" + checkOutName + "Label" + "\"></label></td>"
+					} else {
+						result += "<td><input type=\"button\" class=\"checkInOutBtn\" value=\"체크아웃\" onclick=\"testCheckOut(this)\" id=\"" + checkOutName + "\" ></button>"
+						result += "<label id=\"" + checkOutName + "Label" + "\"></label></td>"
 					}
-					
+
 				} else {
 					result += "<td>" + reservationData[i].clickCheckOut + "</td>";
 				}
 
 				if (reservationData[i].clickCheckIn == '' || reservationData[i].clickCheckIn == null) {
-					result += "<td id=\"" +checkInName + "Status"+ "\">예약완료</td>";
+					result += "<td id=\"" + checkInName + "Status" + "\">예약완료</td>";
 				} else if (reservationData[i].clickCheckOut == '' || reservationData[i].clickCheckOut == null) {
-					result += "<td id=\"" +checkInName + "Status"+ "\">입실완료</td>";
+					result += "<td id=\"" + checkInName + "Status" + "\">입실완료</td>";
 				} else {
-					result += "<td id=\"" +checkInName + "Status"+ "\">퇴실완료</td>";
+					result += "<td id=\"" + checkInName + "Status" + "\">퇴실완료</td>";
 				}
 
 				result += "</tr>";
@@ -227,18 +265,88 @@ function reservationCheckProc() {
 }
 
 
+// 리뷰 확인
+
+function reviewCheck() {
+	xhr = new XMLHttpRequest();
+	xhr.open('post', 'reviewCheck')
+	xhr.send(document.querySelector('input[type=radio][name="reviewRadio"]:checked').value)
+	xhr.onreadystatechange = reviewCheckProc
+	document.getElementById('recentSort').style = "color:#13C3FF;"
+	document.getElementById('starsSort').style = "color:#000;"
+}
+
+function reviewCheckStars(){
+	xhr = new XMLHttpRequest();
+	xhr.open('post', 'reviewCheckStars')
+	xhr.send(document.querySelector('input[type=radio][name="reviewRadio"]:checked').value)
+	xhr.onreadystatechange = reviewCheckProc
+	document.getElementById('starsSort').style = "color:#13C3FF;"
+	document.getElementById('recentSort').style = "color:#000;"
+}
+
+function reviewCheckProc() {
+	var reviewData = JSON.parse(xhr.responseText)
+	console.log('숙소 리뷰 클릭함')
+	if (xhr.readyState === 4 && xhr.status === 200) {
+
+		var result = "";
+
+		if (reviewData == '') {
+			document.getElementById('selecetedRental').innerHTML = '선택한 숙소 : ' + document.querySelector('input[type=radio][name="reviewRadio"]:checked').value + ' <h3>현재 후기가 없습니다.</h3>';
+			document.getElementById('ReviewList').innerHTML = '';
+		} else {
+			for (i = 0; i < reviewData.length; i++) {
+				var stars = "☆☆☆☆☆";
+				if(reviewData[i].reviewPoint == 5){
+					stars = "★★★★★";
+				}else if(reviewData[i].reviewPoint == 4){
+					stars = "★★★★☆";
+				}else if(reviewData[i].reviewPoint == 3){
+					stars = "★★★☆☆";
+				}else if(reviewData[i].reviewPoint == 2){
+					stars = "★★☆☆☆";
+				}else{
+					stars = "★☆☆☆☆";
+				}
+				console.log("리뷰벌점 : " + reviewData[i].reviewPoint)
+				
+				result += "<li><div class=\"reviewerInfo\">"
+				result += "<p><span>" +stars + "</span>"+ reviewData[i].reviewPoint +".0 </p>"
+				result += "<h4>" + reviewData[i].userId + " | " + reviewData[i].writeDate + "</h4></div>"
+				result += "<p><strong>객실명</strong><span>" + reviewData[i].roomName + "</span></p>"
+				result += "<p>" + reviewData[i].content + "</p>"
+			}
+
+
+			document.getElementById('selecetedRental').innerHTML = '선택한 숙소 : ' + reviewData[0].hostName;
+			document.getElementById('ReviewList').innerHTML = result;
+			document.getElementById('reviewTitle').innerHTML = '객실 후기' + '(' + reviewData.length + ')'
+
+
+		}
+
+
+
+
+	}
+}
+
+
+
+
 // 회원 정보 펼치기/접기 함수
-function openInformation(){
+function openInformation() {
 	console.log('클릭됨')
 	var status = document.getElementById('informationBusiness')
 	console.log(status.style)
-	if(document.getElementById('informationBusiness').style.display == 'block' || document.getElementById('informationBusiness').style.display == ''){
+	if (document.getElementById('informationBusiness').style.display == 'block' || document.getElementById('informationBusiness').style.display == '') {
 		document.getElementById('informationBusiness').style = 'display:none';
 		document.getElementById('toggle').textContent = '+';
 		console.log('펼쳐져있었음')
-	}else{
+	} else {
 		document.getElementById('informationBusiness').style = 'display:block';
-		document.getElementById('toggle').textContent = '-';adminAgreeSelectAll
+		document.getElementById('toggle').textContent = '-'; adminAgreeSelectAll
 		console.log('접혀있었음')
 	}
 }
@@ -255,36 +363,36 @@ function testCheckIn(checkInButton) {
 	let hours = today.getHours(); // 시
 	let minutes = today.getMinutes();  // 분
 
-	console.log('현재시간 : ' +year+month+date+day+hours+minutes)
-	console.log('체크인 버튼 값 : ' +checkInButton.value)
-	
-	document.getElementById(checkInButton.id).style = 'display:none';	
-	document.getElementById(checkInButton.id  + 'Label').innerHTML = ''+year+month+date+day+hours+minutes;
-	document.getElementById(checkInButton.id  + 'Status').innerHTML = '입실완료';
-	
-	
+	console.log('현재시간 : ' + year + month + date + day + hours + minutes)
+	console.log('체크인 버튼 값 : ' + checkInButton.value)
+
+	document.getElementById(checkInButton.id).style = 'display:none';
+	document.getElementById(checkInButton.id + 'Label').innerHTML = '' + year + month + date + day + hours + minutes;
+	document.getElementById(checkInButton.id + 'Status').innerHTML = '입실완료';
+
+
 	let checkOutName = '';
 	checkOutName = checkInButton.id
-	
+
 	console.log('체크아웃 버튼 값 : ' + 'checkOut' + checkOutName.substring(7))
 	console.log('예약번호 id : ' + 'reseNum' + checkOutName.substring(7))
 	console.log('예약번호  값 : ' + document.getElementById('reseNum' + checkOutName.substring(7)).innerHTML)
 	document.getElementById('checkOut' + checkOutName.substring(7)).disabled = false
-	
-	var clickCheckInValue = ''+year+month+date+day+hours+minutes
+
+	var clickCheckInValue = '' + year + month + date + day + hours + minutes
 	var reseNumValue = document.getElementById('reseNum' + checkOutName.substring(7)).innerHTML
-	
+
 	var reqData = {
-		clickCheckIn : clickCheckInValue,
-		reseNum : reseNumValue
+		clickCheckIn: clickCheckInValue,
+		reseNum: reseNumValue
 	}
-	
+
 	reqData = JSON.stringify(reqData)
 	xhr = new XMLHttpRequest();
-	xhr.open('post','testCheckIn')
+	xhr.open('post', 'testCheckIn')
 	xhr.setRequestHeader('content-type', 'application/json');
 	xhr.send(reqData);
-	
+
 }
 
 function testCheckOut(checkOutButton) {
@@ -300,30 +408,63 @@ function testCheckOut(checkOutButton) {
 	let checkOutName = '';
 	checkOutName = checkOutButton.id
 	var index = checkOutName.substring(8)
-	console.log('현재시간 : ' +year+month+date+day+hours+minutes)
-	console.log('인덱스 값 : ' +index)
-	
-	document.getElementById(checkOutButton.id).style = 'display:none';	
-	document.getElementById(checkOutButton.id  + 'Label').innerHTML = ''+year+month+date+day+hours+minutes;
-	document.getElementById('checkIn' + index  + 'Status').innerHTML = '퇴실완료';
-	
-	
+	console.log('현재시간 : ' + year + month + date + day + hours + minutes)
+	console.log('인덱스 값 : ' + index)
+
+	document.getElementById(checkOutButton.id).style = 'display:none';
+	document.getElementById(checkOutButton.id + 'Label').innerHTML = '' + year + month + date + day + hours + minutes;
+	document.getElementById('checkIn' + index + 'Status').innerHTML = '퇴실완료';
+
+
 	console.log('예약번호 id : ' + 'reseNum' + index.substring(7))
 	console.log('예약번호  값 : ' + document.getElementById('reseNum' + index).innerHTML)
 
-	var clickCheckOutValue = ''+year+month+date+day+hours+minutes
+	var clickCheckOutValue = '' + year + month + date + day + hours + minutes
 	var reseNumValue = document.getElementById('reseNum' + index).innerHTML
-	
+
 	var reqData = {
-		clickCheckOut : clickCheckOutValue,
-		reseNum : reseNumValue
+		clickCheckOut: clickCheckOutValue,
+		reseNum: reseNumValue
 	}
-	
+
 	reqData = JSON.stringify(reqData)
-	xhr.open('post','testCheckOut')
+	xhr.open('post', 'testCheckOut')
 	xhr.setRequestHeader('content-type', 'application/json');
 	xhr.send(reqData);
 }
+
+
+//*adminDelete popup
+
+document.addEventListener('DOMContentLoaded', () => {
+	const adminDelete_openPopupButton = document.getElementById('adminDelete_openPopupButton');
+	const adminDelete_popup = document.getElementById('adminDelete_popup');
+	const adminDelete_confirmButton = document.getElementById('adminDelete_confirmButton');
+	const adminDelete_cancelButton = document.getElementById('adminDelete_cancelButton');
+	const ad_form = document.querySelector('form[action="adminDeleteProc"]');
+
+	if (adminDelete_openPopupButton) {
+		adminDelete_openPopupButton.addEventListener('click', function(event) {
+			event.preventDefault();
+			adminDelete_popup.style.display = 'block';
+		});
+	}
+	if (adminDelete_confirmButton) {
+		adminDelete_confirmButton.addEventListener('click', () => {
+			console.log('확인 버튼이 눌렸습니다.');
+			if (ad_form) {
+				ad_form.submit();
+			}
+			adminDelete_popup.style.display = 'none';
+		});
+	}
+	if (adminDelete_cancelButton) {
+		adminDelete_cancelButton.addEventListener('click', (event) => {
+			event.preventDefault();
+			adminDelete_popup.style.display = 'none';
+		});
+	}
+});
 
 
 // register.jsp --------------------------------------------------------------------------------

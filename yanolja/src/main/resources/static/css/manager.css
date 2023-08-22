@@ -56,19 +56,22 @@ border-bottom:none; box-sizing:border-box; -webkit-box-sizing:border-box; -moz-b
 .reviewManager{text-align:center;}
 .reviewManager h1{font-size:35px; margin-bottom:100px; background-color:#f89cb5; height:150px; line-height:150px;}
 .reviewManager h2{text-align:left; font-size:30px; margin-left:20px;}
-.reviewManager hr{border:3px solid #f89cb5; margin-bottom:50px;}
+.reviewManager hr{border:1px solid #f89cb5; margin-bottom:20px;}
+
 
 .reviewManager .manager_menu > ul li:nth-child(5){border:1px solid #de2e5f; background-color:#fbd7e1;}
 .reviewManager .manager_menu > ul li:nth-child(5) a{color:#de2e5f;}
-.reviewManager_content{margin-left:300px;}
+.reviewManager_content{margin-left:150px;}
 .reviewManager_reviewTable{margin-bottom:100px;}
 
 /*roomReview   ---  복붙*/
 .roomReview{text-align:left; margin-top:5px;}
+#selecetedRental{margin-bottom: 20px;}
 
 .sortReview > ul {font-size:0; margin-left:10px;}
-.sortReview > ul > li{display:inline-block; font-size:20px; font-weight:400; height:45px; line-height:45px; margin-right:15px;}
+.sortReview > ul > li{display:inline-block; font-size:20px; font-weight:400; height:45px; line-height:45px; margin-right:15px; cursor: pointer;}
 .sortReview > ul > li:hover{color:#13C3FF;}
+.recentSort{color:#13C3FF; }
 
 .ReviewList{margin:0 20px;}
 .reviewerInfo{font-size:0;}
@@ -174,6 +177,7 @@ border-bottom:none; box-sizing:border-box; -webkit-box-sizing:border-box; -moz-b
 .checkInOutBtn{width:80px; height:30px; font-size:15px; font-weight:500; border-radius:10px; border:1px solid #aeaeae; background-color:#fff; color:#aeaeae;}
 .checkInOutBtn:hover{border:1px solid #7d7d7d; background-color:#7d7d7d; color:#fff;}
 
-
+.information_business > .Btn{cursor:pointer; width:200px; height:45px; margin-top:50px; border-radius:10px; font-size:20px; font-weight:500; color:#fff; background-color:#de2e5f; border:none; margin-right:30px; margin-bottom:50px;}
+.information_business > .Btn:hover{background-color:#fff; color:#de2e5f; border:3px solid #de2e5f;}
 
 

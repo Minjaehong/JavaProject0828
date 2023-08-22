@@ -21,6 +21,15 @@
 	<insert id="adminRegisterProc" parameterType="com.care.yanolja.admin.AdminDTO">
 		INSERT INTO admin VALUES(#{adminLocation}, #{region}, #{adminPw}, #{businessNumber}, #{adminMobile},#{adminId},#{adminName})
 	</insert>
+	
+	<update id="adminUpdateProc" parameterType="com.care.yanolja.admin.AdminDTO">
+		UPDATE admin SET admin_location=#{adminLocation}, region=#{region}, admin_pw=#{adminPw}, business_number=#{businessNumber}, admin_mobile=#{adminMobile}, admin_name=#{adminName}  WHERE admin_id=#{adminId}
+	</update>
+	
+	<delete id="adminDeleteProc">
+		DELETE FROM admin WHERE admin_id=#{adminId}
+	</delete>
+	
 
 
 </mapper>

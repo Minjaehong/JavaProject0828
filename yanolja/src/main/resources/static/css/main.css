@@ -66,8 +66,13 @@ border: 1px solid #000; border-right:0; margin-bottom:20px;}
 text-align:right; padding: 20px 10px; box-sizing:border-box; -webkit-box-sizing:border-box; }
 .houseList > ul > li > div > ul > li > p + p {font-size:23px; margin-top:5px;}
 
+#roomReservation_price_set{font-size: 30px; text-align: right;}
+
 /*========================================IndexEnd======================================*/
 
+#user_submit{border-radius:5px;background:#de2e5f; color:#fff; border:1px solid #de2e5f ;position: relative; top: 2px;}
+#adult{position: relative; top: 2px;}
+#children{position: relative; top: 2px;}
 
 /* loginMain */
 .loginMain {text-align: center; padding: 150px 0;}

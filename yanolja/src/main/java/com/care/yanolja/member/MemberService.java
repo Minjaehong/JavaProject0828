@@ -1,14 +1,12 @@
 package com.care.yanolja.member;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 
-import com.care.yanolja.common.PageService;
+import com.care.yanolja.admin.AdminDTO;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -17,123 +15,139 @@ import jakarta.servlet.http.HttpSession;
 public class MemberService {
 	@Autowired private MemberMapper memberMapper;
 	@Autowired private HttpSession session;
+
 	
-	public String loginProc(MemberDTO member) {
+	public String loginMemberProc(MemberDTO member) {
 		if(member.getUserId() == null || member.getUserId().isEmpty()) {
 			return "아이디를 입력하세요.";
 		}		
 		if(member.getUserPw() == null || member.getUserPw().isEmpty()) {
 			return "비밀번호를 입력하세요.";
 		}	
-		
-		MemberDTO result = memberMapper.loginProc(member.getUserId());
-				if(result != null){  // pw 암호화 후 로그인 시
+		MemberDTO result = memberMapper.loginMemberProc(member.getUserId());
+		if(result != null){  // pw 암호화 후 로그인 시
 			BCryptPasswordEncoder bpe = new BCryptPasswordEncoder();
 			if(bpe.matches(member.getUserPw(), result.getUserPw())) {  // (원본 Pw, 암호화된 Pw)
-				session.setAttribute("userId", result.getUserId());
-				session.setAttribute("userName", result.getUserName());			
-	//			System.out.println("MemberService loginProc() : " + result.getUserName());
-	//			System.out.println("MemberService loginProc() : " + result.getAddress());				
-				//session.setAttribute("address", result.getAddress());
-				session.setAttribute("userMobile", result.getUserMobile());
+				session.setAttribute("user_id", result.getUserId());	
+				session.setAttribute("user_email", result.getUserEmail());
+				session.setAttribute("user_name", result.getUserName());
+				session.setAttribute("user_mobile", result.getUserMobile());
+				session.setAttribute("user_dob", result.getUserDob());
+				session.setAttribute("user_snsC", result.getUserSnsC());
+				System.out.println("회원가입종류 : " + session.getAttribute("user_snsC"));
 				return "로그인 성공";
 			}
 		}	
 		return "아이디/비밀번호를 확인 후 다시 시도하세요.";
 	}
+	
+	public String memberdupCheckProc(String Id) {
+		if (Id == null || Id.isEmpty()) {
+			return "아이디를 입력하세요.";
+		}
+		
+		MemberDTO result = memberMapper.loginMemberProc(Id);
+		
+		if (result != null) {
+			return "중복된 아이디입니다.";
+		}
+		
+		return "사용 가능한 아이디입니다.";	
+	}
 
-	public String registerProc(MemberDTO member, String confirm) {
+	public String registerMemberProc(MemberDTO member, String confirm) {
 		if(member.getUserPw().equals(confirm) == false) {
 			return "비밀번호가 일치하지 않습니다. 다시 입력하세요.";
 		}	
-		MemberDTO result = memberMapper.loginProc(member.getUserId());
+		MemberDTO result = memberMapper.loginMemberProc(member.getUserId());
 		if(result == null) {
 			BCryptPasswordEncoder bpe = new BCryptPasswordEncoder();
 			String cryptPassword = bpe.encode(member.getUserPw());
 			member.setUserPw(cryptPassword);
-			memberMapper.registerProc(member);
+			memberMapper.registerMemberProc(member);
 			return "회원 등록 완료";
 		}	
 		return "이미 가입된 아이디 입니다.";
 	}
 
-	public void memberInfo(String cp, String select, String search, Model model) {
-		if(select == null){
-			select = "";
-		}
-		
-		int currentPage = 1;
-		try{
-			currentPage = Integer.parseInt(cp);
-		}catch(Exception e){
-			currentPage = 1;
-		}
-		
-		int pageBlock = 3; // 한 페이지에 보일 데이터의 수 
-		int end = pageBlock * currentPage; // 테이블에서 가져올 마지막 행번호
-		int begin = end - pageBlock + 1; // 테이블에서 가져올 시작 행번호
+//	public String isIdAvailable(String userId) {
+//        MemberDTO result = memberMapper.loginMemberProc(userId);
+//        if(result == null) {
+//        	return "사용가능 아이디";
+//        }
+//        return "사용불가능 아이디";
+//	}
+        
+
 	
-		ArrayList<MemberDTO> members = memberMapper.memberInfo(begin, end, select, search);
-		int totalCount = memberMapper.count(select, search);
-		String url = "memberInfo?select="+select+"&search="+search+"&currentPage=";
-		String result = PageService.printPage(url, currentPage, totalCount, pageBlock);
-		
-		model.addAttribute("members", members);
-		model.addAttribute("result", result);
-		model.addAttribute("currentPage", currentPage);
+	// 카카오 계정
+	public String kakaoLoginProc(MemberDTO member) {	
+		MemberDTO result = memberMapper.loginMemberProc(member.getUserId());
+		if(result != null){  // pw 암호화 후 로그인 시
+			session.setAttribute("user_id", result.getUserId());	
+			session.setAttribute("user_email", result.getUserEmail());
+			session.setAttribute("user_name", result.getUserName());
+			session.setAttribute("user_mobile", result.getUserMobile());
+			session.setAttribute("user_dob", result.getUserDob());
+			session.setAttribute("user_snsC", result.getUserSnsC());
+			return "로그인 성공";
+		}	
+		return "카카오 회원등록하기";
 	}
 
-	public MemberDTO userInfo(String id) {
-		if(id == null || id.isEmpty()) {
-			return null;
-		}
-		
-		String sessionId = (String)session.getAttribute("id");
-		if(sessionId.equals(id) == false && sessionId.equals("admin") == false)
-			return null;
-		
-//		MemberDTO result = memberMapper.loginProc(id);
-		return memberMapper.loginProc(id);
+	public String kakaoRegisterProc(MemberDTO member) {
+		BCryptPasswordEncoder bpe = new BCryptPasswordEncoder();
+		String cryptPassword = bpe.encode(member.getUserPw());
+		member.setUserPw(cryptPassword);
+		memberMapper.kakaoInsert(member);
+		session.setAttribute("user_id", member.getUserId());	
+		session.setAttribute("user_email", member.getUserEmail());
+		session.setAttribute("user_name", member.getUserName());
+		session.setAttribute("user_mobile", member.getUserMobile());
+		session.setAttribute("user_dob", member.getUserDob());
+		session.setAttribute("user_snsC", member.getUserSnsC());
+
+		return "카카오 회원가입 완료";
 	}
 
-	public String updateProc(MemberDTO member, String confirm) {
+	
+	public String updateMemberProc(MemberDTO member, String confirm) {
 		if(member.getUserPw() == null || member.getUserPw().isEmpty()) {
 			return "비밀번호를 입력하세요.";
 		}	
 		if(member.getUserPw().equals(confirm) == false) {
 			return "두 비밀번호를 일치하여 입력하세요.";
-		}	
-		if(member.getUserName() == null || member.getUserName().isEmpty()) {
-			return "이름을 입력하세요.";
-		}
-		
+		}		
 		BCryptPasswordEncoder bpe = new BCryptPasswordEncoder();
 		String cryptPassword = bpe.encode(member.getUserPw());
 		member.setUserPw(cryptPassword);
 		
-		int result = memberMapper.updateProc(member);
+		int result = memberMapper.updateMemberProc(member);
 		if(result == 1)
-			return "회원 정보 수정 완료";
-		return "회원 정보 수정 실패";
+			return "회원정보 수정 완료";
+		return "회원정보 수정 실패";
 	}
 
-	public String deleteProc(String id, String pw, String confirmPw) {
-		if(pw == null || pw.isEmpty()) {
-			return "비밀번호를 입력하세요.";
-		}	
-		if(pw.equals(confirmPw) == false) {
-			return "두 비밀번호를 일치하여 입력하세요.";
-		}
-		
-		BCryptPasswordEncoder bpe = new BCryptPasswordEncoder();
-		MemberDTO member = memberMapper.loginProc(id);
-//		if(member != null && member.getPw().equals(pw)) {
-		if(member != null && bpe.matches(pw, member.getUserPw())) {
-			memberMapper.delete(id);
-			return "회원 정보 삭제 완료";
-		}
-		return "비밀번호를 확인 후 다시 시도하세요.";
+	public String deleteMemberProc(MemberDTO member) {
+		String sessionId = (String)session.getAttribute("user_id");	
+		System.out.println("sessionId : " + sessionId);
+		memberMapper.deleteMember(sessionId);
+		return "회원정보 삭제 완료";
 	}
+
+	public String memberLoginType(MemberDTO member) {
+		String sessionSnsC = (String)session.getAttribute("user_snsC");	
+		System.out.println("sessionSnsC : " + sessionSnsC);
+		if(sessionSnsC.equals("카카오계정")){
+			return "카카오계정";
+		}
+		return "회원가입";
+	}
+	
+	
+	
+	
+	
 	
 	@Autowired private MailService mailService;
 	public String sendEmail(String email) {

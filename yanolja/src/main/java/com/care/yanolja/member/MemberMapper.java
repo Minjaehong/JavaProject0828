@@ -1,25 +1,21 @@
 package com.care.yanolja.member;
 
-import java.util.ArrayList;
-
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface MemberMapper {
 
-	MemberDTO loginProc(String userId);
+	MemberDTO loginMemberProc(String userId);  // id 존재확인
 
-	void registerProc(MemberDTO member);
+	void registerMemberProc(MemberDTO member);
+	void registerKakao(MemberDTO member);
+	void kakaoInsert(MemberDTO member);  // 카카오계정 정보저장
+	MemberDTO kakaoLoginProc(String userId);
+	
+	int updateMemberProc(MemberDTO member);
+	
+	void deleteMember(String userId);
 
-	ArrayList<MemberDTO> memberInfo(
-			@Param("begin")int begin, @Param("end")int end, 
-			@Param("select")String select, @Param("search")String search);
-
-	int count(@Param("select")String select, @Param("search")String search);
-
-	int updateProc(MemberDTO member);
-
-	void delete(String id);
+	
 
 }

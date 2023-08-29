@@ -4,6 +4,7 @@
 <title>회원탈퇴</title>
 
 <script src="yanoljaFunction.js"></script>
+<script src="yanoljaFunction1.js"></script>
 <link rel="stylesheet" href="/css/reset.css" type="text/css">
 <c:import url="/header"/>
 

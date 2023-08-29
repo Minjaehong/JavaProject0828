@@ -46,4 +46,25 @@ public class ReviewController {
 		
 		return reviewService.reviewCheckStars(reviewRadio, model);
 	}
+	
+	@ResponseBody
+	@PostMapping("answerUpload")
+	public void answerUpload(@RequestBody(required = false) ReviewDTO reqData ) {
+		
+		reviewService.answerUpload(reqData);
+	}
+	
+	@ResponseBody
+	@PostMapping("answerModify")
+	public void answerModify(@RequestBody(required = false) ReviewDTO reqData) {
+		
+		reviewService.answerModify(reqData);
+	}
+	
+	@ResponseBody
+	@PostMapping("answerDelete")
+	public void answerDelete(@RequestBody(required = false) ReviewDTO reqData) {
+		
+		reviewService.answerDelete(reqData);
+	}
 }

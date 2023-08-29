@@ -36,4 +36,16 @@ public class ReviewService {
 		
 		return reviews;		
 	}
+	
+	public void answerUpload(ReviewDTO review) {
+		reviewMapper.answerUpload(review);
+	}
+	
+	public void answerModify(ReviewDTO review) {
+		reviewMapper.answerModify(review);
+	}
+	
+	public void answerDelete(ReviewDTO review) {
+		reviewMapper.answerDelete(review);
+	}
 }

@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <script src="yanoljaFunction.js"></script>
+<script src="yanoljaFunction1.js"></script>
 
 <link rel="stylesheet" href="/css/reset.css" type="text/css">
 
@@ -10,6 +11,8 @@
 
 <c:import url="/header" />
 
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+<span class="material-symbols-outlined" id="arrow_upward" onClick="javascript:window.scrollTo(0,0)">arrow_upward</span>
 <div class="reviewManager">
 	<h1>My 야놀자 [사업자용]</h1>
 	<div class="sideMenuBar_inner">
@@ -17,15 +20,15 @@
 		<div class="manager_menu">
 			<ul>
 				<li>숙소 관리</li>
-				<li><a href="#">기존 숙소 관리</a></li>
-				<li><a href="#">신규 숙소 등록</a></li>
+				<li><a href="existedHouseManager">기존 숙소 관리</a></li>
+				<li><a href="newHouseManager">신규 숙소 등록</a></li>
 				<li><a href="reservationManager">예약 현황</a></li>
 				<li><a href="reviewManager">후기 관리</a></li>
 			</ul>
 		</div>
 
 		<div class="reviewManager_content">
-			<h2 onclick="openInformation()">회원 정보 <span id="toggle">-</span></h2>
+			<h2 onclick="openInformationBusiness()">회원 정보 <span id="toggle">-</span></h2>
 				<hr>
 				<div class="information_business" id="informationBusiness">
 					<ul>

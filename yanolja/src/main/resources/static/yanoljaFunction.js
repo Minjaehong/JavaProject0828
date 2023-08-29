@@ -213,7 +213,7 @@ function reservationCheckProc() {
 		} else {
 			for (i = 0; i < reservationData.length; i++) {
 				result += "<tr>";
-				result += "<td>" + i + "</td>";
+				result += "<td>" + (i+1) + "</td>";
 				result += "<td>" + reservationData[i].roomName + "</td>";
 
 				peopleSum = Number(reservationData[i].people) + Number(reservationData[i].children) + Number(reservationData[i].peoplePlus);
@@ -290,7 +290,17 @@ function reviewCheckProc() {
 	console.log('숙소 리뷰 클릭함')
 	if (xhr.readyState === 4 && xhr.status === 200) {
 
+		
 		var result = "";
+		let today = new Date();
+		let year = today.getFullYear(); // 년도
+		let month = today.getMonth() + 1;  // 월
+		let date = today.getDate();  // 날짜
+		if(month > 0 && month < 10){
+			month = "0" + month
+		}
+		
+		var adminWriteDate = year +"."+month+"."+date
 
 		if (reviewData == '') {
 			document.getElementById('selecetedRental').innerHTML = '선택한 숙소 : ' + document.querySelector('input[type=radio][name="reviewRadio"]:checked').value + ' <h3>현재 후기가 없습니다.</h3>';
@@ -311,11 +321,32 @@ function reviewCheckProc() {
 				}
 				console.log("리뷰벌점 : " + reviewData[i].reviewPoint)
 				
+				var reseNum = reviewData[i].writeDate;
+                var reseDate = reseNum.substring(0, 4) + "." + reseNum.substring(4, 6) + "." + reseNum.substring(6, 8);
+				
 				result += "<li><div class=\"reviewerInfo\">"
 				result += "<p><span>" +stars + "</span>"+ reviewData[i].reviewPoint +".0 </p>"
-				result += "<h4>" + reviewData[i].userId + " | " + reviewData[i].writeDate + "</h4></div>"
+				
+				result += "<h4>" + reviewData[i].userId + " | " + reseDate + "</h4></div>"
 				result += "<p><strong>객실명</strong><span>" + reviewData[i].roomName + "</span></p>"
 				result += "<p>" + reviewData[i].content + "</p>"
+								
+				if(reviewData[i].adminContent == '' || reviewData[i].adminContent == null){
+					result += "<div class=\"Reply\"><h3>숙소 답변 | " + adminWriteDate + "</h3>"
+					result += "<textarea class=\"ReplyTextarea\" id=\"ReplyTextarea"+ i + "\"></textarea></div>"
+					result += "<div class=\"answerClick\"><button type=\"button\" class=\"answerBtn\" id=\"answerBtn"+ i + "\" onclick=\"answerUpload(this)\">답변 작성</button>"
+					result += "<button type=\"button\" class=\"answerBtn\" id=\"deleteBtn"+ i + "\" onclick=\"answerDelete(this)\" style=\"display:none;\">답변 삭제</button>"
+					result += "<button type=\"button\" class=\"answerBtn\" id=\"modifyBtn"+ i + "\"  onclick=\"answerModify(this)\" style=\"display:none;\">답변 수정</button>	</div>"
+					result += "<input id=\"reseNumValue"+ i + "\" value=\""  + reviewData[i].reseNum + "\" style=\"display:none\"/>"
+					
+				}else{
+					result += "<div class=\"Reply\"><h3>숙소 답변 | " + adminWriteDate + "</h3>"
+					result += "<textarea class=\"ReplyTextarea\" id=\"ReplyTextarea"+ i + "\">" +  reviewData[i].adminContent +"</textarea></div>"
+					result += "<div class=\"answerClick\"><button type=\"button\" class=\"answerBtn\" id=\"answerBtn"+ i + "\" onclick=\"answerUpload(this)\" style=\"display:none;\">답변 작성</button>"
+					result += "<button type=\"button\" class=\"answerBtn\" id=\"deleteBtn"+ i + "\" onclick=\"answerDelete(this)\">답변 삭제</button>"
+					result += "<button type=\"button\" class=\"answerBtn\" id=\"modifyBtn"+ i + "\"  onclick=\"answerModify(this)\">답변 수정</button>	</div>"
+					result += "<input id=\"reseNumValue"+ i + "\" value=\""  + reviewData[i].reseNum + "\" style=\"display:none\"/>"
+				}
 			}
 
 
@@ -336,7 +367,7 @@ function reviewCheckProc() {
 
 
 // 회원 정보 펼치기/접기 함수
-function openInformation() {
+function openInformationBusiness() {
 	console.log('클릭됨')
 	var status = document.getElementById('informationBusiness')
 	console.log(status.style)
@@ -350,6 +381,112 @@ function openInformation() {
 		console.log('접혀있었음')
 	}
 }
+
+// 리뷰 답변 작성 함수
+function answerUpload(uploadButton){
+	var answerBtnName = uploadButton.id	
+	var adminContentValue = document.querySelector('#ReplyTextarea'+answerBtnName.substring(9)).value
+	
+	if(adminContentValue == '' || adminContentValue == null){
+		
+	}else{	
+	
+	console.log('리뷰 답변 작성')
+	let today = new Date();
+		let year = today.getFullYear(); // 년도
+		let month = today.getMonth() + 1;  // 월
+		let date = today.getDate();  // 날짜
+		if(month > 0 && month < 10){
+			month = "0" + month
+		}
+	
+	
+	var adminWriteDateValue = year +"."+month+"."+date
+	
+	var reseNumValue = document.getElementById('reseNumValue'+answerBtnName.substring(9)).value	
+	console.log('답변 내용' + adminContentValue)
+	
+	var reqData = {
+		adminWriteDate: adminWriteDateValue,
+		adminContent: adminContentValue,
+		reseNum: reseNumValue
+	}
+	
+	
+	
+	console.log('buttonName :' + 'answerBtn'+answerBtnName.substring(9))
+	
+	document.getElementById('answerBtn'+answerBtnName.substring(9)).style = "display:none"
+	document.getElementById('modifyBtn'+answerBtnName.substring(9)).style = "display:block"
+	document.getElementById('deleteBtn'+answerBtnName.substring(9)).style = "display:block"
+	
+	
+	reqData = JSON.stringify(reqData)
+	xhr = new XMLHttpRequest();
+	xhr.open('post', 'answerUpload')
+	xhr.setRequestHeader('content-type', 'application/json');
+	xhr.send(reqData);
+	}
+	
+}
+
+function answerModify(modifyButton){
+	console.log('리뷰 답변 수정')
+	let today = new Date();
+		let year = today.getFullYear(); // 년도
+		let month = today.getMonth() + 1;  // 월
+		let date = today.getDate();  // 날짜
+		if(month > 0 && month < 10){
+			month = "0" + month
+		}
+	
+	var answerBtnName = modifyButton.id	
+	var adminWriteDateValue = year +"."+month+"."+date
+	var adminContentValue = document.querySelector('#ReplyTextarea'+answerBtnName.substring(9)).value
+	var reseNumValue = document.getElementById('reseNumValue'+answerBtnName.substring(9)).value
+		
+	var reqData = {
+		adminWriteDate: adminWriteDateValue,
+		adminContent: adminContentValue,
+		reseNum: reseNumValue
+	}
+	
+	console.log('buttonName :' + 'answerBtn'+answerBtnName.substring(9))
+	
+	document.getElementById('modifyBtn'+answerBtnName.substring(9)).style = "display:block"
+	document.getElementById('deleteBtn'+answerBtnName.substring(9)).style = "display:block"
+	
+	reqData = JSON.stringify(reqData)
+	xhr = new XMLHttpRequest();
+	xhr.open('post', 'answerModify')
+	xhr.setRequestHeader('content-type', 'application/json');
+	xhr.send(reqData);
+	
+}
+
+function answerDelete(deleteButton){
+	console.log('리뷰 답변 삭제')
+	
+	var answerBtnName = deleteButton.id	
+	var reseNumValue = document.getElementById('reseNumValue'+answerBtnName.substring(9)).value
+	
+		
+	var reqData = {
+		reseNum: reseNumValue
+	}
+	
+	document.querySelector('#ReplyTextarea'+answerBtnName.substring(9)).value = ""
+	document.getElementById('answerBtn'+answerBtnName.substring(9)).style = "display:block"
+	document.getElementById('modifyBtn'+answerBtnName.substring(9)).style = "display:none"
+	document.getElementById('deleteBtn'+answerBtnName.substring(9)).style = "display:none"
+	
+	reqData = JSON.stringify(reqData)
+	xhr = new XMLHttpRequest();
+	xhr.open('post', 'answerDelete')
+	xhr.setRequestHeader('content-type', 'application/json');
+	xhr.send(reqData);	
+}
+
 
 // 체크인,체크아웃 시간 확인 함수
 function testCheckIn(checkInButton) {
@@ -442,6 +579,9 @@ document.addEventListener('DOMContentLoaded', () => {
 	const adminDelete_confirmButton = document.getElementById('adminDelete_confirmButton');
 	const adminDelete_cancelButton = document.getElementById('adminDelete_cancelButton');
 	const ad_form = document.querySelector('form[action="adminDeleteProc"]');
+	
+
+	console.log('adminDelete')
 
 	if (adminDelete_openPopupButton) {
 		adminDelete_openPopupButton.addEventListener('click', function(event) {
@@ -464,212 +604,8 @@ document.addEventListener('DOMContentLoaded', () => {
 			adminDelete_popup.style.display = 'none';
 		});
 	}
+	
+	
+
 });
-
-
-// register.jsp --------------------------------------------------------------------------------
-function individualAgree() {
-	const checkboxes = document.querySelectorAll('input[name="agreeBtn"]');
-	const checked = document.querySelectorAll('input[name="agreeBtn"]:checked');
-	const selectAll = document.querySelector('input[name="agreeAllBtn"]');
-	if (checkboxes.length === checked.length) {
-		selectAll.checked = true;
-	} else {
-		selectAll.checked = false;
-	}
-}
-function registerAllAgree(selectAll) {
-	const checkboxes = document.getElementsByName('agreeBtn');
-
-	checkboxes.forEach((checkbox) => {
-		checkbox.checked = selectAll.checked
-	})
-}
-
-
-function allCheck() {
-	let agreeBtn1 = document.getElementById('agreeBtn1');
-	let agreeBtn2 = document.getElementById('agreeBtn2');
-	let id = document.getElementById('id');
-	labelId = document.getElementById('labelId');
-	let pw = document.getElementById('pw');
-	labelPw = document.getElementById('labelPw')
-	let email = document.getElementById('email');
-	let auth = document.getElementById('auth');
-	let name = document.getElementById('name');
-	let select_year = document.getElementById('select_year');
-	let select_month = document.getElementById('select_month');
-	let select_day = document.getElementById('select_day');
-	let mobile = document.getElementById('mobile');
-
-	if (!agreeBtn1.checked || !agreeBtn2.checked) {
-		alert('필수 이용약관을 동의하지 않았습니다.');
-	} else if (id.value == "") {
-		alert('아이디를 입력하세요.');
-	} else if (labelId.textContent !== '사용 가능한 아이디입니다') {
-		alert('아이디 중복확인은 필수 항목입니다.');
-	} else if (pw.value == "") {
-		alert('비밀번호를 입력하세요.');
-	} else if (labelPw.textContent !== '일치') {
-		alert('비밀번호 확인은 필수 항목입니다.');
-	} else if (email.value == "") {
-		alert('이메일를 입력하세요.');
-	} else if (auth.value == "") {
-		alert('인증번호를 입력하세요.');
-	} else if (name.value == "") {
-		alert('이름을 입력하세요.');
-	} else if (select_year.value == "" || select_month.value == "" || select_day.value == "") {
-		alert('생년월일을 입력하세요.');
-	} else if (mobile.value == "") {
-		alert('연락처를 입력하세요.');
-	} else {
-		var f = document.getElementById('f');
-		f.submit();
-	}
-}
-function idCheck() {
-	let id = document.getElementById('id')
-	// id 중복확인
-	labelId = document.getElementById('labelId');
-	if (true) {
-		labelId.innerHTML = '사용 가능한 아이디입니다';
-	} else {
-
-		labelId.innerHTML = '사용 불가능한 아이디입니다. 다시 입력하세요';
-	}
-}
-function pwCheck() {
-	let pw = document.getElementById('pw');
-	confirm = document.getElementById('confirm');
-	console.log(confirm);
-	labelPw = document.getElementById('labelPw');
-	if (pw.value == confirm.value) {
-		labelPw.innerHTML = '일치';
-	} else {
-		labelPw.innerHTML = '불일치';
-	}
-}
-function loginCheck() {
-	let id = document.getElementById('id');
-	let pw = document.getElementById('pw');
-
-	if (id.value == "") {
-		alert('아이디는 필수 항목입니다.');
-	} else if (pw.value == "") {
-		alert('비밀번호는 필수 항목입니다.');
-	} else {
-		var f = document.getElementById('f');
-		f.submit();
-	}
-}
-
-
-var xhr;
-function sendEmail() {
-	xhr = new XMLHttpRequest();
-	xhr.open('post', 'sendEmail')
-	xhr.send(document.getElementById('email').value)
-	xhr.onreadystatechange = resProc
-}
-
-function sendAuth() {
-	if (xhr == null) {
-		alert('이메일 주소를 입력 후 이용하세요.');
-		return;
-	}
-	xhr.open('post', 'sendAuth');
-	xhr.send(document.getElementById('auth').value);
-	xhr.onreadystatechange = sendAuthProc
-}
-
-function sendAuthProc() {
-	if (xhr.readyState === 4 && xhr.status === 200) {
-		alert(xhr.responseText);
-	}
-	if (xhr.responseText === '인증 성공') {
-		document.getElementById('emailBtn').style = 'display:none';
-		document.getElementById('authUl').style = 'display:none';
-		labelEmail = document.getElementById('labelEmail');
-		labelEmail.innerHTML = '인증 완료';
-	}
-}
-
-function resProc() {
-	if (xhr.readyState === 4 && xhr.status === 200) {
-		alert(xhr.responseText);
-	}
-}
-
-
-// newHouseManager.jsp --------------------------------------------------------------------------------
-// reservationManager.jsp --------------------------------------------------------------------------------
-function checkBtn_show() {
-	var roomType1 = document.getElementById("roomType1");
-	var roomType2 = document.getElementById("roomType2");
-	var roomTypeState1 = document.getElementById("roomTypeState1");
-	var roomTypeState2 = document.getElementById("roomTypeState2");
-	if (roomType1.checked) { // 대실
-		roomTypeState1.style.display = "block";
-	} else {
-		roomTypeState1.style.display = "none";
-	}
-	if (roomType2.checked) {  // 숙박
-		roomTypeState2.style.display = "block";
-	} else {
-		roomTypeState2.style.display = "none";
-	}
-}
-
-function roomregisterBtn_show() {
-	var room_registerState = document.getElementById("room_registerState");
-	if (room_registerState.style.display === 'none') { // 객실등록
-		room_registerState.style.display = 'block';
-	} else {
-		room_registerState.style.display = 'none';
-	}
-}
-
-function execDaumPostcode() {
-	new daum.Postcode({
-		oncomplete: function(data) {
-			if (data.userSelectedType === 'R') {
-				document.getElementById('address').value = data.roadAddress;
-			} else {
-				document.getElementById('address').value = data.jibunAddress;
-			}
-			document.getElementById('postcode').value = data.zonecode;
-		}
-	}).open();
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

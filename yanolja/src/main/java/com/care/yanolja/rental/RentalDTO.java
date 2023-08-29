@@ -1,55 +1,68 @@
 package com.care.yanolja.rental;
 
 public class RentalDTO {
-	private String hostName;
-	private String hostImg;
-	private String roomName;
-	private String roomImg;
+	
+	
+	private String min_people;
+	
+	private String max_people;
+	private String host_name;
+	private String room_name;
+	private String roo_img;
 	private String region;
-	private String adminName;
-	private String adminId;
-	private String adminLocation;
-	private String businessNumber;
-	private String minPeople;
-	private String maxPeople;
-	private String roomPay;
-	private String roomNum;
+	private String admin_Id;
+	private String room_pay;
+	private String room_num;
+	private String address;
 	private String info;
 	private String service;
-	private String lodType;
-	private String deadlineC;
-	private String adminMobile;
+	private String lod_type;
+	private String deadline_C;
+	private String Num;
+	private String Representative_photo;
 	
+	public String getRepresentative_photo() {
+		return Representative_photo;
+	}
+	public void setRepresentative_photo(String representative_photo) {
+		Representative_photo = representative_photo;
+	}
 	
-	public String getAdminId() {
-		return adminId;
+	public String getNum() {
+		return Num;
 	}
-	public void setAdminId(String adminId) {
-		this.adminId = adminId;
+	public void setNum(String num) {
+		Num = num;
 	}
-	public String getHostImg() {
-		return hostImg;
+	public String getMin_people() {
+		return min_people;
 	}
-	public void setHostImg(String hostImg) {
-		this.hostImg = hostImg;
+	public void setMin_people(String min_people) {
+		this.min_people = min_people;
 	}
-	public String getHostName() {
-		return hostName;
+	public String getMax_people() {
+		return max_people;
 	}
-	public void setHostName(String hostName) {
-		this.hostName = hostName;
+	public void setMax_people(String max_people) {
+		this.max_people = max_people;
 	}
-	public String getRoomName() {
-		return roomName;
+	public String getHost_name() {
+		return host_name;
 	}
-	public void setRoomName(String roomName) {
-		this.roomName = roomName;
+	public void setHost_name(String host_name) {
+		this.host_name = host_name;
 	}
-	public String getRoomImg() {
-		return roomImg;
+	public String getRoom_name() {
+		return room_name;
 	}
-	public void setRoomImg(String roomImg) {
-		this.roomImg = roomImg;
+	public void setRoom_name(String room_name) {
+		this.room_name = room_name;
+	}
+	public String getRoo_img() {
+		return roo_img;
+	}
+	public void setRoo_img(String roo_img) {
+		this.roo_img = roo_img;
 	}
 	public String getRegion() {
 		return region;
@@ -57,47 +70,30 @@ public class RentalDTO {
 	public void setRegion(String region) {
 		this.region = region;
 	}
-	public String getAdminName() {
-		return adminName;
+	public String getAdmin_Id() {
+		return admin_Id;
 	}
-	public void setAdminName(String adminName) {
-		this.adminName = adminName;
+	public void setAdmin_Id(String admin_Id) {
+		this.admin_Id = admin_Id;
 	}
-	public String getAdminLocation() {
-		return adminLocation;
+
+	public String getRoom_pay() {
+		return room_pay;
 	}
-	public void setAdminLocation(String adminLocation) {
-		this.adminLocation = adminLocation;
+	public void setRoom_pay(String room_pay) {
+		this.room_pay = room_pay;
 	}
-	public String getBusinessNumber() {
-		return businessNumber;
+	public String getRoom_num() {
+		return room_num;
 	}
-	public void setBusinessNumber(String businessNumber) {
-		this.businessNumber = businessNumber;
+	public void setRoom_num(String room_num) {
+		this.room_num = room_num;
 	}
-	public String getMinPeople() {
-		return minPeople;
+	public String getAddress() {
+		return address;
 	}
-	public void setMinPeople(String minPeople) {
-		this.minPeople = minPeople;
-	}
-	public String getMaxPeople() {
-		return maxPeople;
-	}
-	public void setMaxPeople(String maxPeople) {
-		this.maxPeople = maxPeople;
-	}
-	public String getRoomPay() {
-		return roomPay;
-	}
-	public void setRoomPay(String roomPay) {
-		this.roomPay = roomPay;
-	}
-	public String getRoomNum() {
-		return roomNum;
-	}
-	public void setRoomNum(String roomNum) {
-		this.roomNum = roomNum;
+	public void setAddress(String address) {
+		this.address = address;
 	}
 	public String getInfo() {
 		return info;
@@ -111,24 +107,19 @@ public class RentalDTO {
 	public void setService(String service) {
 		this.service = service;
 	}
-	public String getLodType() {
-		return lodType;
+	public String getLod_type() {
+		return lod_type;
 	}
-	public void setLodType(String lodType) {
-		this.lodType = lodType;
+	public void setLod_type(String lod_type) {
+		this.lod_type = lod_type;
 	}
-	public String getDeadlineC() {
-		return deadlineC;
+	public String getDeadline_C() {
+		return deadline_C;
 	}
-	public void setDeadlineC(String deadlineC) {
-		this.deadlineC = deadlineC;
-	}
-	public String getAdminMobile() {
-		return adminMobile;
-	}
-	public void setAdminMobile(String adminMobile) {
-		this.adminMobile = adminMobile;
+	public void setDeadline_C(String deadline_C) {
+		this.deadline_C = deadline_C;
 	}
 	
 	
 }
+	

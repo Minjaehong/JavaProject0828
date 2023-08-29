@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <script src="yanoljaFunction.js"></script>
+<script src="yanoljaFunction1.js"></script>
 
 <link rel="stylesheet" href="/css/reset.css" type="text/css">
 
@@ -21,8 +22,8 @@
 			<div class="manager_menu">
 				<ul>
 					<li>숙소 관리</li>
-					<li><a href="#">기존 숙소 관리</a></li>
-					<li><a href="#">신규 숙소 등록</a></li>
+					<li><a href="existedHouseManager">기존 숙소 관리</a></li>
+					<li><a href="newHouseManager">신규 숙소 등록</a></li>
 					<li><a href="reservationManager">예약 현황</a></li>
 					<li><a href="reviewManager">후기 관리</a></li>
 				</ul>
@@ -30,7 +31,7 @@
 
 
 			<div class="reservationManager_content">
-				<h2 onclick="openInformation()">회원 정보 <span id="toggle">-</span></h2>
+				<h2 onclick="openInformationBusiness()">회원 정보 <span id="toggle">-</span></h2>
 				<hr>
 				<div class="information_business" id="informationBusiness">
 					<ul>

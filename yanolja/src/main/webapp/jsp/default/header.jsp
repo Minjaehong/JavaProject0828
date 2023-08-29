@@ -16,7 +16,7 @@
 
 	<div class="header">
 		<div class="inner">
-			<a href="#"><img src="img/default/headerImg/logoYanolja.png" alt="logoYanolja"></a>
+			<a href="${context }index"><img src="img/default/headerImg/logoYanolja.png" alt="logoYanolja"></a>
 			<div class="header_menu">
 				<ul>
 					<li>
@@ -26,7 +26,7 @@
 						</a>
 					</li>
 					<li>
-						<a href="${context }cart">
+						<a href="${context }Cart">
 							<img src="img/default/headerImg/shoppingCart.png" alt="shoppingCart"> 
 							<p>장바구니</p>
 						</a>

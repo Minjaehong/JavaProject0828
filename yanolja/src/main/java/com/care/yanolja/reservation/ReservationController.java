@@ -27,6 +27,8 @@ public class ReservationController {
 	private RentalService rentalService;
 	@Autowired
 	private HttpSession session;
+	
+	
 
 	@RequestMapping("reservationManager")
 	public String reservationManager(Model model) {

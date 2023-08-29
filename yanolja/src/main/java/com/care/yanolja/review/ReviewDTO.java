@@ -8,7 +8,29 @@ public class ReviewDTO {
 	private String content;
 	private String writeDate;
 	private int reviewPoint;
+	private String adminId;
+	private String adminContent;
+	private String adminWriteDate;
 	
+	
+	public String getAdminId() {
+		return adminId;
+	}
+	public void setAdminId(String adminId) {
+		this.adminId = adminId;
+	}
+	public String getAdminContent() {
+		return adminContent;
+	}
+	public void setAdminContent(String adminContent) {
+		this.adminContent = adminContent;
+	}
+	public String getAdminWriteDate() {
+		return adminWriteDate;
+	}
+	public void setAdminWriteDate(String adminWriteDate) {
+		this.adminWriteDate = adminWriteDate;
+	}
 	public String getReseNum() {
 		return reseNum;
 	}

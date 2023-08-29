@@ -53,6 +53,7 @@ public class MemberDTO {
 	public void setUserSnsC(String userSnsC) {
 		this.userSnsC = userSnsC;
 	}
+
 }
 	
 	

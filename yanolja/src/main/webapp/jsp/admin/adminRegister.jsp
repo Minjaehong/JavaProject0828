@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <script src="yanoljaFunction.js"></script>
+<script src="yanoljaFunction1.js"></script>
 <link rel="stylesheet" href="/css/reset.css" type="text/css">
 
 <title>사업자용 회원가입</title>
@@ -49,29 +50,29 @@
 				<div class="register_business" id="businessState">
 					<ul>
 						<li>아이디</li>
-						<li><input type="text" style="width:500px;" id="adminId" name="adminId" placeholder="아이디를 입력하세요"></li>
+						<li><input type="text" style="width:400px;" id="adminId" name="adminId" placeholder="아이디를 입력하세요"></li>
 						<li><button type="button" class="registerBtn" onclick="dupCheck()">중복 확인</button></li>
 						<li><label id="adminIdCheck"></label></li> <!-- 중복확인 시 중복확인 환료 출력 -->
 					</ul>
 					<ul>
 						<li>비밀번호(*)</li>
-						<li><input type="password" style="width:500px;" id="adminPw" name="adminPw" maxlength="12"
+						<li><input type="password" style="width:400px;" id="adminPw" name="adminPw" maxlength="12"
 						placeholder="비밀번호를 입력하세요(영문+숫자+특수문자 6~12자리)" onkeyup="adminPwRegCheck()"></li>
 						<li><label id="adminPwReg" name="adminPwReg"></label></li>
 					</ul>
 					<ul>
 						<li></li>
-						<li><input type="password" style="width:500px;" placeholder="비밀번호 확인" id="adminPwConfirm" name="adminPwConfirm" maxlength="12"
+						<li><input type="password" style="width:400px;" placeholder="비밀번호 확인" id="adminPwConfirm" name="adminPwConfirm" maxlength="12"
 						onkeyup="adminPwCheck()"></li>
 						<li><label id="adminPwCheck" name="adminPwCheck"></label></li>  <!-- 일치/불일치 출력 -->
 					</ul>
 					<ul>
 	                  <li>이름</li>
-	                  <li><input type="text" id="adminName" name="adminName" style="width:500px;" placeholder="이름을 입력하세요"></li>
+	                  <li><input type="text" id="adminName" name="adminName" style="width:400px;" placeholder="이름을 입력하세요"></li>
 	               </ul>
 	               <ul>
 	                  <li>연락처</li>
-	                  <li><input type="text" id="adminMobile" name="adminMobile" style="width:500px;" placeholder="연락처를 입력하세요"></li>
+	                  <li><input type="text" id="adminMobile" name="adminMobile" style="width:400px;" placeholder="연락처를 입력하세요"></li>
 	               </ul>
 	               <ul>
 	                  <li>사업지 주소</li>
@@ -81,8 +82,8 @@
 	               <ul>
 	               	 <li></li>
 					<li>
-						  <input type="text" id="adminAddress" name="adminAddress" placeholder="주소">
-		                  <input type="text" id="adminDetailAddress" name="adminDetailAddress" placeholder="상세주소">
+						  <input type="text" id="adminAddress" name="adminAddress"  placeholder="주소">
+		                  <input type="text" id="adminDetailAddress" name="adminDetailAddress"  placeholder="상세주소">
 					</li>
 	               </ul>
 	               <ul>
@@ -102,7 +103,7 @@
 	               </ul>
 					<ul>
 						<li>사업자번호</li>
-						<li><input type="text" style="width:500px;" placeholder="사업자번호를 입력하세요( - 없이 10자리 숫자)" id="businessNumber"
+						<li><input type="text" style="width:400px;" placeholder="사업자번호를 입력하세요( - 없이 10자리 숫자)" id="businessNumber"
 						name="businessNumber" onkeyup="businessNumberCheck()" maxlength="10"></li>
 						<li><label id="businessNumberCheck" name="businessNumberCheck"></label></li>
 					</ul>

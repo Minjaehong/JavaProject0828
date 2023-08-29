@@ -9,7 +9,7 @@
 
 <div class="loginMain inner">
 
-		<button onclick="location.href=''">개인용</button>
+		<button onclick="location.href='loginMember'">개인용</button>
 		<button onclick="location.href='adminLogin'">사업자용</button>
 		
 	

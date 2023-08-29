@@ -8,9 +8,9 @@
 
 /*circleCheckbox 공통*/
 .circleCheck label{margin-right:50px;}
-.circleCheck input[type="checkbox"] + label:before{content:""; display:inline-block; width:20px; height:20px; border:2px solid #ddd; border-radius:50%; vertical-align:middle;}
+.circleCheck input[type="checkbox"] + label:before{content:""; display:inline-block; width:20px; height:20px; border:2px solid #ddd; border-radius:50%; vertical-align:middle; }
 .circleCheck input[type="checkbox"]:checked + label:before{content:""; border-color:#7d7d7d; background-color:#7d7d7d; background-image:none;}
-
+.circleCheck input[type="checkbox"]{display: none;}
 /*manager_menu 공통*/
 .manager_menu{position:absolute; left:calc(50% - 600px);}
 .manager_menu > ul{margin-bottom:80px;}
@@ -54,7 +54,7 @@ border-bottom:none; box-sizing:border-box; -webkit-box-sizing:border-box; -moz-b
 
 /*reviewManager.jsp ********************************************************************/
 .reviewManager{text-align:center;}
-.reviewManager h1{font-size:35px; margin-bottom:100px; background-color:#f89cb5; height:150px; line-height:150px;}
+.reviewManager h1{font-size:35px; margin-bottom:100px; background-color:#fff; height:100px; line-height:150px;}
 .reviewManager h2{text-align:left; font-size:30px; margin-left:20px;}
 .reviewManager hr{border:1px solid #f89cb5; margin-bottom:20px;}
 
@@ -73,6 +73,8 @@ border-bottom:none; box-sizing:border-box; -webkit-box-sizing:border-box; -moz-b
 .sortReview > ul > li:hover{color:#13C3FF;}
 .recentSort{color:#13C3FF; }
 
+
+
 .ReviewList{margin:0 20px;}
 .reviewerInfo{font-size:0;}
 .reviewerInfo > p {display:inline-block; font-size:20px; font-weight:500; margin-right:20px;}
@@ -84,13 +86,13 @@ border-bottom:none; box-sizing:border-box; -webkit-box-sizing:border-box; -moz-b
 .ReviewList > ul > li > p{margin-bottom:20px; font-size:17px; font-weight:400;}
 
 .Reply{margin:10px 0; background-color:#eee; padding:15px 25px; border-radius:10px;}
-.Reply h3{font-size:20px; font-weight:500; margin-bottom:15px;}
+.Reply h3{font-size:20px; font-weight:500; margin-bottom:5px;}
 .Reply p {font-size:17px; font-weight:400; margin-bottom:10px; line-height:130%;}
 
-.Reply textarea{resize:none; overflow:auto; font-size:17px; height:130px;}
+.Reply textarea{resize:none; overflow:auto; font-size:17px; padding:0; height:80px; background-color:#eee; border:none; font-weight:500;}
 
-.answerClick{text-align:right;}
-.answerClick .answerBtn{cursor:pointer; width:180px; height:40px; margin-top:10px; border-radius:10px; font-size:20px; font-weight:500; color:#fff; background-color:#de2e5f; border:none; margin-left:20px;}
+.answerClick{text-align:right; overflow: hidden;}
+.answerClick .answerBtn{ cursor:pointer; float:right; width:180px; height:40px; margin-top:10px; border-radius:10px; font-size:20px; font-weight:500; color:#fff; background-color:#de2e5f; border:none; margin-left:20px;}
 .answerClick .answerBtn:hover{background-color:#fff; color:#de2e5f; border:3px solid #de2e5f;}
 
 
@@ -161,7 +163,7 @@ border-bottom:none; box-sizing:border-box; -webkit-box-sizing:border-box; -moz-b
 
 /*reservationManager.jsp ********************************************************************/
 .reservationManager{text-align:center;}
-.reservationManager h1{font-size:35px; margin-bottom:100px; height:150px; line-height:150px;}
+.reservationManager h1{font-size:35px; margin-bottom:100px; height:100px; line-height:150px;}
 .reservationManager h2{text-align:left; font-size:30px; margin-left:20px;}
 .reservationManager_content > hr{border:1px solid #f89cb5; margin-bottom:30px;}
 .reservationManager_content{margin-left:150px;}
@@ -171,7 +173,7 @@ border-bottom:none; box-sizing:border-box; -webkit-box-sizing:border-box; -moz-b
 
 .manager_reservationTable{margin-bottom:100px;}
 
-.manager_table{width: 100%; font-size:14px;}
+.manager_table{width: 100%; font-size:14px; text-align: center;}
 .reservation_stateTable > .manager_table > tbody {font-size:14px;}
 .reservation_stateTable > .manager_table > tbody > tr > td > input[type="text"]{border:none; text-align:center; padding:0;}
 .checkInOutBtn{width:80px; height:30px; font-size:15px; font-weight:500; border-radius:10px; border:1px solid #aeaeae; background-color:#fff; color:#aeaeae;}

@@ -4,6 +4,12 @@
 @import url('manager.css');
 @import url('main.css');
 @import url('admin.css');
+@import url('cart.css');
+@import url('reservation.css');
+@import url('review.css');
+@import url('places.css');
+
+
 
 @import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap');
@@ -45,7 +51,7 @@ input[type="password"]:-input-placeholder {color:#7e7c7c;}
 input[type="password"]:-ms-input-placeholder {color:#7e7c7c;}
 input[type="password"]::-moz-input-placeholder {color:#7e7c7c;}
 
-select{width:80px; height:40px; border:1px solid #ddd; padding:0 10px; background:url(arrow.png) no-repeat 95% 50%; font-size:16px; color:#222; box-sizing:border-box; -webkit-box-sizing:border-box; -webkit-appearance:none; -moz-appearance:none; -o-appearance:none;appearance:none;}
+select{width:80px; height:40px; border:1px solid #ddd; padding:0 10px; font-size:16px; color:#222; box-sizing:border-box; -webkit-box-sizing:border-box; -webkit-appearance:none; -moz-appearance:none; -o-appearance:none;appearance:none;}
 select::-ms-expand{display: none;}
 
 textarea{width:100%; height:250px; border:1px solid #ddd; padding:20px; font-size:16px; box-sizing:border-box; -webkit-box-sizing:border-box;}

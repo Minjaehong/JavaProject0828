@@ -18,7 +18,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class KakaoService {
 	private String accessToken;
 	private String scope;
-
+	
 	public void getAccessToken(String code) {
 		/*
 		 * # 액세스 토큰 가져오기 #
@@ -28,7 +28,7 @@ public class KakaoService {
 		String redirectUri = "http://localhost/kakaoLogin";
 		String reqUrl = "https://kauth.kakao.com/oauth/token";
 		String reqParam = "grant_type=authorization_code";
-		reqParam += "&client_id=af3185dbf0396a5bf08b67e29a79b429";
+		reqParam += "&client_id=41e6e62701faf2fbb0f972419ce70b87";
 		reqParam += "&redirect_uri="+redirectUri;
 		reqParam += "&code=" + code;
 
@@ -45,7 +45,7 @@ public class KakaoService {
 			bw.write(reqParam);
 			bw.flush();
 
-			int responseCode = conn.getResponseCode(); // 결과 코드가 200이라면 성공
+//			int responseCode = conn.getResponseCode(); // 결과 코드가 200이라면 성공
 //			System.out.println("responseCode : " + responseCode);
 
 			// 요청을 통해 얻은 JSON타입의 Response 메세지 읽어오기
@@ -74,7 +74,7 @@ public class KakaoService {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
+//		return accessToken;
 	}
 	
 	public void setNeedsAgreement() {
@@ -86,7 +86,7 @@ public class KakaoService {
 	
 		String redirectUri = "http://localhost/kakaoLogin";
 		String reqUrl = "https://kauth.kakao.com/oauth/authorize";
-		String reqParam = "?client_id=af3185dbf0396a5bf08b67e29a79b42";
+		String reqParam = "?client_id=41e6e62701faf2fbb0f972419ce70b87";
 		reqParam += "&redirect_uri="+redirectUri;
 		reqParam += "&response_type=code&scope="+scope;
 		
@@ -99,55 +99,58 @@ public class KakaoService {
 			bw.write(reqParam);
 			bw.flush();
 
-			int responseCode = conn.getResponseCode(); // 결과 코드가 200이라면 성공
-			System.out.println("responseCode : " + responseCode);
+//			int responseCode = conn.getResponseCode(); // 결과 코드가 200이라면 성공
+//			System.out.println("responseCode : " + responseCode);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public void getUserInfo() {
+	public MemberDTO getUserInfo() {
 		/*
 		 * 사용자 정보 가져오기
 		 * https://developers.kakao.com/docs/latest/ko/kakaologin/rest-api#req-user-info
 		 */
-
+		//HashMap<String, Object> userInfo = new HashMap<String, Object>();  // DB 저장시 사용
+		
 		String reqUrl = "https://kapi.kakao.com/v2/user/me";
 		HttpURLConnection conn;
 		try {
 			URL url = new URL(reqUrl); // POST 요청에 필요로 요구하는 파라미터 스트림을 통해 전송
 			conn = (HttpURLConnection) url.openConnection();
 
-			conn.setRequestMethod("POST");
+			conn.setRequestMethod("GET");
 			conn.setRequestProperty("Authorization", "Bearer " + accessToken); // Authorization: Bearer ${ACCESS_TOKEN}
 
-			int responseCode = conn.getResponseCode(); // 결과 코드가 200이라면 성공
+//			int responseCode = conn.getResponseCode(); // 결과 코드가 200이라면 성공
 //			System.out.println("responseCode : " + responseCode);
 
 			ObjectMapper om = new ObjectMapper();
 			JsonNode jsonTree = om.readTree(conn.getInputStream());
-
-			System.out.println("jsonTree : " + jsonTree);
-			System.out.println("kakao_account : " + jsonTree.get("kakao_account"));
-
 			JsonNode kakaoAccount = jsonTree.get("kakao_account");
-			System.out.println("profile : " + kakaoAccount.get("profile"));
-			System.out.println("email : " + kakaoAccount.get("email"));
-			System.out.println("age_range : " + kakaoAccount.get("age_range"));
-			System.out.println("gender : " + kakaoAccount.get("gender"));
 
-			System.out.println("profile : " + kakaoAccount.get("profile"));
-			System.out.println("nickname : " + kakaoAccount.get("profile").get("nickname"));
-			System.out.println(kakaoAccount.get("profile").get("nickname").textValue());
+			System.out.println("id(getUserInfo) : " + jsonTree.get("id"));
+			System.out.println("nickname(getUserInfo) : " + kakaoAccount.get("profile").get("nickname").textValue());
+			System.out.println("email(getUserInfo) : " + kakaoAccount.get("email").textValue());
 
-			/*
-			 {"id":2916902118,"connected_at":"2023-07-18T02:28:09Z","properties":{"nickname":"김연수","profile_image":"http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_640x640.jpg","thumbnail_image":"http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_110x110.jpg"},"kakao_account":{"profile_nickname_needs_agreement":false,"profile_image_needs_agreement":false,"profile":{"nickname":"김연수","thumbnail_image_url":"http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_110x110.jpg","profile_image_url":"http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_640x640.jpg","is_default_image":true},"has_email":true,"email_needs_agreement":false,"is_email_valid":true,"is_email_verified":true,"email":"kyes0222@gmail.com","has_age_range":true,"age_range_needs_agreement":false,"age_range":"30~39","has_gender":true,"gender_needs_agreement":false,"gender":"male"}}
-			 {"id":2916902118,"connected_at":"2023-07-18T02:28:09Z","properties":{"nickname":"김연수","profile_image":"http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_640x640.jpg","thumbnail_image":"http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_110x110.jpg"},"kakao_account":{"profile_nickname_needs_agreement":false,"profile_image_needs_agreement":false,"profile":{"nickname":"김연수","thumbnail_image_url":"http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_110x110.jpg","profile_image_url":"http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_640x640.jpg","is_default_image":true},"has_email":true,"email_needs_agreement":false,"is_email_valid":true,"is_email_verified":true,"email":"kyes0222@gmail.com","has_age_range":true,"age_range_needs_agreement":false,"age_range":"30~39","has_gender":true,"gender_needs_agreement":false,"gender":"male"}}
-			 */
+            String kakaoId = jsonTree.get("id").asText();
+            String kakaoNickname = kakaoAccount.get("profile").get("nickname").textValue();
+            String kakaoEmail = kakaoAccount.get("email").textValue();
+            String kakaoSnsC = "카카오계정";
+
+            MemberDTO member = new MemberDTO();
+	        member.setUserId(kakaoId);
+            member.setUserName(kakaoNickname);
+            member.setUserEmail(kakaoEmail);
+            member.setUserSnsC(kakaoSnsC);	
+            return member;
+
 		} catch (IOException e) {
-			e.printStackTrace();
+			e.printStackTrace();			
 		}
+		return null;
 	}
+
 	
 	public void unLink() {
 		/*
@@ -159,12 +162,10 @@ public class KakaoService {
 		try {
 			URL url = new URL(reqUrl); 
 			conn = (HttpURLConnection) url.openConnection();
-
 			conn.setRequestMethod("POST");
 			conn.setRequestProperty("Authorization", "Bearer " + accessToken); // Authorization: Bearer ${ACCESS_TOKEN}
 
-			int responseCode = conn.getResponseCode(); // 결과 코드가 200이라면 성공
-			System.out.println("responseCode : " + responseCode);
+//			int responseCode = conn.getResponseCode(); // 결과 코드가 200이라면 성공
 
 			ObjectMapper om = new ObjectMapper();
 			JsonNode jsonNode = om.readTree(conn.getInputStream());
@@ -174,6 +175,8 @@ public class KakaoService {
 			e.printStackTrace();
 		}
 	}
+	
+	
 	public void get() {
 		/*
 		 * 사용자 정보 가져오기
@@ -189,29 +192,12 @@ public class KakaoService {
 			conn.setRequestMethod("POST");
 			conn.setRequestProperty("Authorization", "Bearer " + accessToken); // Authorization: Bearer ${ACCESS_TOKEN}
 
-			int responseCode = conn.getResponseCode(); // 결과 코드가 200이라면 성공
-//			System.out.println("responseCode : " + responseCode);
+//			int responseCode = conn.getResponseCode(); // 결과 코드가 200이라면 성공
 
-			ObjectMapper om = new ObjectMapper();
-			JsonNode jsonTree = om.readTree(conn.getInputStream());
+//			ObjectMapper om = new ObjectMapper();
+//			JsonNode jsonTree = om.readTree(conn.getInputStream());
+//			JsonNode kakaoAccount = jsonTree.get("kakao_account");
 
-			System.out.println("jsonTree : " + jsonTree);
-			System.out.println("kakao_account : " + jsonTree.get("kakao_account"));
-
-			JsonNode kakaoAccount = jsonTree.get("kakao_account");
-			System.out.println("profile : " + kakaoAccount.get("profile"));
-			System.out.println("email : " + kakaoAccount.get("email"));
-			System.out.println("age_range : " + kakaoAccount.get("age_range"));
-			System.out.println("gender : " + kakaoAccount.get("gender"));
-
-			System.out.println("profile : " + kakaoAccount.get("profile"));
-			System.out.println("nickname : " + kakaoAccount.get("profile").get("nickname"));
-			System.out.println(kakaoAccount.get("profile").get("nickname").textValue());
-
-			/*
-			 {"id":2916902118,"connected_at":"2023-07-18T02:28:09Z","properties":{"nickname":"김연수","profile_image":"http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_640x640.jpg","thumbnail_image":"http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_110x110.jpg"},"kakao_account":{"profile_nickname_needs_agreement":false,"profile_image_needs_agreement":false,"profile":{"nickname":"김연수","thumbnail_image_url":"http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_110x110.jpg","profile_image_url":"http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_640x640.jpg","is_default_image":true},"has_email":true,"email_needs_agreement":false,"is_email_valid":true,"is_email_verified":true,"email":"kyes0222@gmail.com","has_age_range":true,"age_range_needs_agreement":false,"age_range":"30~39","has_gender":true,"gender_needs_agreement":false,"gender":"male"}}
-			 {"id":2916902118,"connected_at":"2023-07-18T02:28:09Z","properties":{"nickname":"김연수","profile_image":"http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_640x640.jpg","thumbnail_image":"http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_110x110.jpg"},"kakao_account":{"profile_nickname_needs_agreement":false,"profile_image_needs_agreement":false,"profile":{"nickname":"김연수","thumbnail_image_url":"http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_110x110.jpg","profile_image_url":"http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_640x640.jpg","is_default_image":true},"has_email":true,"email_needs_agreement":false,"is_email_valid":true,"is_email_verified":true,"email":"kyes0222@gmail.com","has_age_range":true,"age_range_needs_agreement":false,"age_range":"30~39","has_gender":true,"gender_needs_agreement":false,"gender":"male"}}
-			 */
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

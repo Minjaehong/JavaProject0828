@@ -51,10 +51,11 @@ margin-right:150px; padding:5px 10px; border-radius:10px; margin-bottom:20px;}
 
 
 /*register_content*/
-.register_content{text-align:left; margin-left:150px;}
+.register_content{text-align:left; }
 .register_content ul{overflow:hidden;}
 .register_content ul li{float:left; font-size:17px; font-weight:400; margin-top:5px; line-height:50px; margin-right:10px;}
 .register_content ul li:first-child{width:150px; height:50px; font-size:19px; font-weight:500;}
+#adminIdCheck{font-size:14px;}
 
 .postcodeBtn{cursor:pointer; width:150px; height:40px; border-radius:10px; font-size:17px; font-weight:500; margin-right:10px; background-color:#de2e5f; color:#fff; border:none;}
 .postcodeBtn:hover{background-color:#fff; border:1px solid #de2e5f; color:#de2e5f;}

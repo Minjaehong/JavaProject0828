@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <script src="yanoljaFunction.js"></script>
+<script src="yanoljaFunction1.js"></script>
 <link rel="stylesheet" href="/css/reset.css" type="text/css">
 
 
@@ -9,7 +10,7 @@
 <!-- header -->
 <div class="headerLogin">
 	<div class="inner">
-		<a href="#"><img src="img/default/headerImg/logoYanolja.png"
+		<a href="index"><img src="img/default/headerImg/logoYanolja.png"
 			alt="logoYanolja"></a>
 	</div>
 </div>
